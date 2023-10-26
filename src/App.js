@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import Navbar from "./components/Navbar.js";
+import FrontPage from "./components/Frontpage.js";
+import Dashboard from "./components/Dashboard.js";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import LanguageDetails from "./components/LanguageDetails.js";
+import ExerciseList from "./components/ExerciseList"; // Adjust the import path
+import toast, { Toaster } from 'react-hot-toast';
+// import './App.css'; // Import your CSS file
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+       <Toaster />
+      <Navbar></Navbar>
+      <Router>
+        <Routes>
+          <Route path="/" element={<FrontPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/exercises/:languageID" component={ExerciseList} />
+        </Routes>
+      </Router>
+      <Toaster />
+    </>
   );
 }
 

@@ -2,6 +2,9 @@
   text-align: center;
 }
 
+
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +39,37 @@
     transform: rotate(360deg);
   }
 }
+
+/* styles.css */
+.badge-container {
+  display: flex;
+  gap: 10px; /* Adjust the space between sample languages */
+}
+
+.sample-language-badge {
+  font-size: 18px; /* Adjust the font size for sample languages */
+}
+
+/* .bg-custom {
+  background-color: #4455a4; 
+}
+
+body {
+  background-color: #292b2c;
+  color: #fff;
+}
+
+.App {
+  text-align: center;
+  background-color: #292b2c; 
+  color: #fff; 
+} 
+
+.techno-card {
+  background-color: #292b2c;
+  border: 2px solid #3498db;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px;
+}
+/* */
