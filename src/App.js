@@ -14,14 +14,14 @@ function App() {
   return (
     <>
        <Toaster />
-      <Navbar></Navbar>
       <Router>
+      <Navbar></Navbar>
         <Routes>
           <Route path="/" element={<FrontPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/exercises/:languageID" component={ExerciseList} />
+          <Route path="/exercises/:languageID" component={<ExerciseList />} />
         </Routes>
       </Router>
       <Toaster />

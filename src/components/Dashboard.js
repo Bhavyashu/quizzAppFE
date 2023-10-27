@@ -1,25 +1,26 @@
-
-
-import base_url from '../constants';
 import React, { useState, useEffect } from "react";
 import ExerciseList from "./ExerciseList";
+import base_url from "../constants";
 
-function LanguageCard({ language, onCardClick }) {
+function LanguageCard({ language:card, onCardClick }) {
   const handleCardClick = () => {
-    onCardClick(language._id);
+    onCardClick(card.language._id);
   };
 
   return (
-    <div className="col-md-4">
-      <div className="card">
+    <div className="col-md-4 mb-4">
+      <div className="card border border-primary">
         <div className="card-body">
-          <h5 className="card-title">{language.name}</h5>
+          <h5 className="card-title">{card.language.name}</h5>
           <p className="card-text">
-            Proficiency: {language.proficiency}
+            Proficiency: {card.proficiency}
             <br />
-            Score: {language.score}
+            Score: {card.score}
           </p>
-          <button onClick={handleCardClick} className="btn btn-primary">
+          <button
+            onClick={handleCardClick}
+            className="btn btn-primary btn-block"
+          >
             Click me
           </button>
         </div>
@@ -34,23 +35,34 @@ function LanguageCards() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch data from your API
-    fetch(`${base_url}/quiz/languages`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data && data.data && Array.isArray(data.data)) {
-          setData(data.data);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${base_url}/quiz/languages`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const data = await response.json();
+
+        if (data && data.data && Array.isArray(data.data.preffered_languge)) {
+          // console.log(data.data.preffered_languge);
+          setData(data.data.preffered_languge);
         } else {
           setError("Invalid API response structure");
         }
-      })
-      .catch((err) => setError(err));
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleCardClick = (languageId) => {
@@ -62,18 +74,21 @@ function LanguageCards() {
   }
 
   return (
-    <div className="container">
+    <div className="container" style={{ paddingTop: "80px" }}>
       {selectedLanguageId ? (
         <ExerciseList languageId={selectedLanguageId} />
       ) : (
-        <div className="row" style={{ marginTop: "8%" }}>
-          {data.map((item) => (
-            <LanguageCard
-              key={item.language._id}
-              language={item.language}
-              onCardClick={handleCardClick}
-            />
-          ))}
+        <div className="row mt-4">
+          {data.map((item) => {
+            console.log(`this is the key for lang_id :  ${item.language._id}`);
+            return (
+              <LanguageCard
+                key={item.language._id}
+                language={item}
+                onCardClick={handleCardClick}
+              />
+            );
+          })}
         </div>
       )}
     </div>
@@ -82,38 +97,30 @@ function LanguageCards() {
 
 export default LanguageCards;
 
+// import React, { useState, useEffect } from 'react';
+// import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 
+// import ExerciseList from './ExerciseList';
 // import base_url from '../constants';
-// import React, { useState, useEffect } from "react";
-// import ExerciseList from "./ExerciseList";
 
-// // Define CSS styles for the card
-// const cardStyle = {
-//   background: "white",
-//   color: "black",
-//   border: "2px solid #007BFF",
-//   borderRadius: "10px",
-//   margin: "20px",
-//   padding: "15px",
-//   boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-// };
+// function LanguageCard({ language: card }) {
+//   const navigate = useNavigate();
 
-// function LanguageCard({ language, onCardClick }) {
 //   const handleCardClick = () => {
-//     onCardClick(language._id);
+//     navigate(`/exercises/${card.language._id}`); // Use the Link to the existing route
 //   };
 
 //   return (
-//     <div className="col-md-4">
-//       <div className="card" style={cardStyle}>
+//     <div className="col-md-4 mb-4">
+//       <div className="card border border-primary">
 //         <div className="card-body">
-//           <h5 className="card-title">{language.name}</h5>
+//           <h5 className="card-title">{card.language.name}</h5>
 //           <p className="card-text">
-//             Proficiency: {language.proficiency}
+//             Proficiency: {card.proficiency}
 //             <br />
-//             Score: {language.score}
+//             Score: {card.score}
 //           </p>
-//           <button onClick={handleCardClick} className="btn btn-primary">
+//           <button onClick={handleCardClick} className="btn btn-primary btn-block">
 //             Click me
 //           </button>
 //         </div>
@@ -124,52 +131,55 @@ export default LanguageCards;
 
 // function LanguageCards() {
 //   const [data, setData] = useState([]);
-//   const [selectedLanguageId, setSelectedLanguageId] = useState(null);
 //   const [error, setError] = useState(null);
 
 //   useEffect(() => {
-//     // Fetch data from your API
-//     fetch(`${base_url}/quiz/languages`, {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: "Bearer " + localStorage.getItem("token"),
-//       },
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         if (data && data.data && Array.isArray(data.data)) {
-//           setData(data.data);
-//         } else {
-//           setError("Invalid API response structure");
-//         }
-//       })
-//       .catch((err) => setError(err));
-//   }, []);
+//     const fetchData = async () => {
+//       try {
+//         const {data :response} = await fetch(`${base_url}/quiz/languages`, {
+//           method: 'GET',
+//           headers: {
+//             'Content-Type': 'application/json',
+//             authorization: 'Bearer ' + localStorage.getItem('token'),
+//           },
+//         });
 
-//   const handleCardClick = (languageId) => {
-//     setSelectedLanguageId(languageId);
-//   };
+//         if (!response.ok) {
+//           throw new Error('Failed to fetch data');
+//         }
+
+//         const data = await response.json();
+//         console.log("this is the data");
+//         console.log(data);
+//         if (data && data.data && Array.isArray(data.data.preferred_language)) {
+//           console.log(data.data.preferred_language);
+//           setData(data.data.preferred_language);
+//         } else {
+//           setError('Invalid API response structure');
+//         }
+//       } catch (err) {
+//         setError(err.message);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
 
 //   if (error) {
 //     return <div>Error: {error}</div>;
 //   }
 
 //   return (
-//     <div className="container">
-//       {selectedLanguageId ? (
-//         <ExerciseList languageId={selectedLanguageId} />
-//       ) : (
-//         <div className="row" style={{ marginTop: "8%" }}>
-//           {data.map((item) => (
-//             <LanguageCard
-//               key={item.language._id}
-//               language={item.language}
-//               onCardClick={handleCardClick}
-//             />
-//           ))}
-//         </div>
-//       )}
+//     <div>
+//     {console.log(`HERE is the data ${data}`)}
+//     <div className="container" style={{ paddingTop: '80px' }}>
+//       <div className="row mt-4">
+//         {data.map((item) => {
+//           console.log(`this is the item ${item}`);
+//           <LanguageCard key={item.language._id} language={item} />
+//         })}
+//       </div>
+//     </div>
 //     </div>
 //   );
 // }

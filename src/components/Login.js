@@ -51,7 +51,7 @@ const Login = () => {
         localStorage.setItem("languages", data.data.language);
 
         console.log("Token set successfully.");
-        navigate("/");
+        navigate("/dashboard");
         window.location.reload();
       } catch (error) {
         console.error("Error setting token in localStorage:", error);

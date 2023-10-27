@@ -173,3 +173,4 @@ const handleSignUp = async () => {
 };
 
 export default Register;
+

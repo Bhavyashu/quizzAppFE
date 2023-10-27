@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const handleLogOut = () => {
     localStorage.clear();
-    // navigate("/");
-    window.location.reload();
+    navigate("/");
+    // window.location.reload();
   };
   const handleProfile = () => {
     if (localStorage.getItem("role") === "student") {
@@ -19,7 +20,7 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className="navbar navbar-expand-md h-5 py-1 fixed-top"
+        className="navbar navbar-expand-md navbar-light fixed-top"
         style={{
           backgroundColor: "#eeeeee",
           borderBottom: "2px solid grey", // Add black border at the bottom
