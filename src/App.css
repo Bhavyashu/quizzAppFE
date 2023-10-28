@@ -298,4 +298,162 @@
 }
 
 
-/* You can adjust the styles further if needed */
+/* leader board page  */
+
+/* Container for the leaderboard page */
+.leaderboard-page {
+  background-color: #292B3A; /* Background color to match the website's design */
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  align-items: center;
+}
+
+/* Language Selection Dropdown */
+select {
+  background-color: #333; /* Dropdown background color */
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Candidate Cards */
+.candidate-card {
+  background-color: #444;
+  color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+  max-height: 40%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+
+  /* Add a neonish look to the edges of the card */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+
+/* /* candidate-card {
+  background-color: #444;
+  color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+} */
+
+.candidate-card:hover {
+  transform: scale(1.05); /* Enlarge the card on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #1fa3ec; /* Neon border on hover */
+}
+
+/* Card Content */
+.card-header h3 {
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.card-content {
+  padding: 10px 0;
+}
+
+/* Styling for other languages */
+.other-languages {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.other-languages p {
+  margin: 0;
+}
+
+/* Enable scrolling for the cards */
+.leaderboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  overflow-y: auto;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Scrollbar styling (for webkit-based browsers) */
+.leaderboard-cards::-webkit-scrollbar {
+  width: 10px;
+}
+
+.leaderboard-cards::-webkit-scrollbar-thumb {
+  background: #1fa3ec; /* Scrollbar thumb color */
+  border-radius: 10px;
+}
+
+.leaderboard-cards::-webkit-scrollbar-track {
+  background: #333; /* Scrollbar track color */
+}
+
+
+
+
+
+.icon {
+  /* display: inline; */
+  width: 20px; 
+  height: 20px;
+  display: flex;
+  align-items: center;
+  margin-right: 20px; 
+}
+
+
+.icon-text-container {
+  /* display: flex; */
+  align-items: center;
+}
+
+
+
+
+.card-header {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  flex: 1; /* This makes the user-info div take up all available space */
+}
+
+.user-icon {
+  margin-left: 10px; /* Adjust the margin as needed to control the space between the user name and the icon */
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column; /* Stack language entries vertically */
+}
+
+.language-scor-proff-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px; /* Adjust the margin as needed to control the space between language entries */
+}
+
+/* .icon, .language-info, .score-info, .proficiency-info {
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* Adjust the margin as needed to control the space between elements
+} */

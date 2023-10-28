@@ -31,7 +31,7 @@ const QuizPage = () => {
         },
         body: JSON.stringify({
           qid: question._id,
-          answer: selectedAnswer.trim(),
+          answer: selectedAnswer,
           difficulty: question.Difficulty_level,
           excerId: exerciseId,
           langId: languageId,
@@ -75,6 +75,7 @@ const QuizPage = () => {
 
   async function fetchQuestion() {
     try {
+      setQuestion({});
       const endpoint = `${base_url}/quiz/question?eid=${exerciseId}&lid=${languageId}`;
       const response = await fetch(endpoint,{
           method: "GET",
@@ -96,6 +97,15 @@ const QuizPage = () => {
       console.error(error);
     }
   }
+
+
+  useEffect(() => {
+    return () => {
+      setQuestion({}); // Clear question when unmounting
+    };
+  }, []);
+
+  
   useEffect(() => {
     fetchQuestion();
   }, []);
@@ -128,6 +138,7 @@ const QuizPage = () => {
         {loading ? (
           <div className="loading-card">Verifying Answer...</div>
         ) : (
+          question.Question && (
           <div className="quiz-content">
             <div className="quiz-question">
               <p>{question.Question}</p>
@@ -150,6 +161,7 @@ const QuizPage = () => {
               </button>
             </div>
           </div>
+          )
         )}
       </div>
     </div>

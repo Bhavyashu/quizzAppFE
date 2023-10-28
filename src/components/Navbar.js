@@ -49,13 +49,11 @@ const NavigationBar = () => {
                     Dashboard
                   </Link>
                 </li>
-                {userRole === 'student' && (
                   <li className="nav-item">
                     <Link to="/leaderboard" className="nav-link pl-2 pr-4" style={{ color: "#ffffff" }}>
                       Leaderboard
                     </Link>
                   </li>
-                )}
               </>
             )}
           </ul>

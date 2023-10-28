@@ -183,7 +183,6 @@ function ExerciseList() {
         setError(err.message);
       }
     };
-    console.log('i fire once');
 
     fetchExercises();
   },[]);

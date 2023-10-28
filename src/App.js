@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard.js";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import LanguageDetails from "./components/LanguageDetails.js";
+import Leaderboard from "./components/leaderboard.js";
 import ExerciseList from "./components/ExerciseList"; // Adjust the import path
 import QuizComponent from "./components/Quiz.js";
 import toast, { Toaster } from 'react-hot-toast';
@@ -25,6 +26,7 @@ function App() {
           {/* <Route path="/exercises/:languageID" component={<ExerciseList />} /> */}
           <Route path="/exercises/:languageId" element={<ExerciseList />} />
           <Route path="/quiz/:exerciseId/:languageId" element={<QuizComponent />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
 
         </Routes>
       </Router>
