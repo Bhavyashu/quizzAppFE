@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import logoutImage from "../images/logout.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Navbar = () => {
     navigate("/");
     // window.location.reload();
   };
+
   const handleProfile = () => {
     if (localStorage.getItem("role") === "student") {
       //   navigate("/studentProfile");
@@ -17,13 +19,14 @@ const Navbar = () => {
       //   navigate("/professionalProfile");
     }
   };
+
   return (
     <div>
       <nav
         className="navbar navbar-expand-md navbar-light fixed-top"
         style={{
-          backgroundColor: "#eeeeee",
-          borderBottom: "2px solid grey", // Add black border at the bottom
+          backgroundColor: "#2b2b2b", // Dark background color
+          borderBottom: "2px solid #4a90e2", // Blue border at the bottom
         }}
       >
         <button
@@ -45,7 +48,7 @@ const Navbar = () => {
                 href="/"
                 className="nav-link pl-4 pr-4"
                 style={{
-                  color: "#4455a4",
+                  color: "#4a90e2", // New text color
                   fontWeight: "bold",
                   fontSize: "22px",
                 }}
@@ -58,7 +61,7 @@ const Navbar = () => {
                 href="/dashboard"
                 className="nav-link pl-2 pr-4"
                 style={{
-                  color: "#4455a4",
+                  color: "#4a90e2", // New text color
                   fontWeight: "bold",
                   fontSize: "22px",
                 }}
@@ -74,7 +77,7 @@ const Navbar = () => {
                   href="/ScheduledStudent"
                   className="nav-link pl-2 pr-4"
                   style={{
-                    color: "#4455a4",
+                    color: "#ce5a67",
                     fontWeight: "bold",
                     fontSize: "22px",
                   }}
@@ -86,12 +89,12 @@ const Navbar = () => {
             </li>
           </ul>
           {localStorage.getItem("token") === null && (
-            <form className=" my-2 my-lg-0 pr-3">
+            <form className="my-2 my-lg-0 pr-3">
               <a
                 className="btn my-2 my-sm-0"
                 style={{
-                  backgroundColor: "#4455a4",
-                  color: "#eeeeee",
+                  backgroundColor: "#4a90e2", // Blue button background
+                  color: "#eeeeee", // White text color
                   fontWeight: "bold",
                   fontSize: "22px",
                 }}
@@ -103,24 +106,46 @@ const Navbar = () => {
             </form>
           )}
           {localStorage.getItem("token") && (
-            <div class="btn-group">
+            <div className="btn-group">
               <button
-                class="btn btn-secondary btn-sm dropdown-toggle"
+                className="btn btn-secondary btn-sm dropdown-toggle"
                 type="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                style={{
+                  color: "#12486B",
+                }}
               >
-                More options here
+                {/* <img src={userProfileImage} alt="User Profile" /> */}
+                 More options
+                  {/* here */}
               </button>
-              <div class="dropdown-menu">
-                <div class="dropdown-divider"></div>
+              <div className="dropdown-menu">
+                <div className="dropdown-divider"></div>
                 <button
-                  class="dropdown-item secondary"
-                  href="#"
+                  className="dropdown-item secondary"
                   onClick={handleLogOut}
+                  style={{
+                    color: "#ff6b81",
+                  }}
                 >
-                  Logout
+                  {/* <img src={logoutImage} alt="Logout" /> */}
+                   Logout
+                </button>
+                <button
+                  className="dropdown-item secondary"
+                  // onClick={handleUserProfile}
+                >
+                  {/* <img src={userProfileImage} alt="UserProfile" /> */}
+                  UserProfile 
+                </button>
+                <button
+                  className="dropdown-item secondary"
+                  // onClick={handleUpdateProfile}
+                >
+                  {/* <img src={updateProfileImage} alt="UpdateProfile" />{" "} */}
+                  UpdateProfile
                 </button>
               </div>
             </div>
