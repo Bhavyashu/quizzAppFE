@@ -125,6 +125,7 @@ import backgroundImage from "../images/exercise-bg.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faL } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function ExerciseList() {
   const navigate = useNavigate();
@@ -172,10 +173,10 @@ function ExerciseList() {
         );
 
         if (!response.ok) {
-          throw Error("Failed to fetch exercises");
+          toast.error("Failed to fetch exercises");
         }
 
-        const data = await response.json();
+        const {data} = await response.json();
         setExerciseFetched(true);
         setExercises(data);
       } catch (err) {
@@ -185,7 +186,7 @@ function ExerciseList() {
     console.log('i fire once');
 
     fetchExercises();
-  });
+  },[]);
 
   if (error) {
     return <div>Error: {error}</div>;

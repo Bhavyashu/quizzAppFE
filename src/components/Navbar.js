@@ -3,24 +3,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NavigationDropdown from './services/navbarDropdown'; // Create this component
 
-// const Navbar = () => {
-//   const navigate = useNavigate();
-
-//   const handleLogOut = () => {
-//     localStorage.clear();
-//     navigate("/");
-//     // window.location.reload();
-//   };
-
-//   const handleProfile = () => {
-//     if (localStorage.getItem("role") === "student") {
-//       //   navigate("/studentProfile");
-//     } else {
-//       //   navigate("/professionalProfile");
-//     }
-//   };
-
-
 const NavigationBar = () => {
   const [userToken, setUserToken] = useState(localStorage.getItem('token'));
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));

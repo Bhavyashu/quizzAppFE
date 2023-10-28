@@ -49,11 +49,8 @@ const Login = () => {
         localStorage.setItem("token", data.data.accessToken);
         localStorage.setItem("email", data.data.email);
         localStorage.setItem("name", data.data.name);
-        localStorage.setItem("languages", data.data.language);
-
+        // localStorage.setItem("languages", data.data.language);
         toast.success("Successfully logged in");
-        toast.success("Successfully logged in");
-
         // Introduce a delay of 1000 milliseconds (1 second)
         setTimeout(() => {
           navigate("/dashboard");
