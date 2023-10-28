@@ -22,8 +22,6 @@ const QuizPage = () => {
 
   const verifyAnswer = async (question, selectedAnswer) => {
     try {
-      console.log(`this is the answer being sent on the backend |${selectedAnswer}|`);
-      console.log(typeof selectedAnswer);
       const endpoint = `${base_url}/quiz/verifyAnswer`;
       const response = await fetch(endpoint, {
         method: "POST",
@@ -75,33 +73,32 @@ const QuizPage = () => {
     return null; // Return null if there was an error
   };
 
-  useEffect(() => {
-    async function fetchQuestion() {
-      try {
-        const endpoint = `${base_url}/quiz/question?eid=${exerciseId}&lid=${languageId}`;
-        const response = await fetch(endpoint,{
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        );;
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("this is the question id ", data);
-          setQuestion(data);
-        } else {
-          console.error('Failed to fetch question');
+  async function fetchQuestion() {
+    try {
+      const endpoint = `${base_url}/quiz/question?eid=${exerciseId}&lid=${languageId}`;
+      const response = await fetch(endpoint,{
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
-      } catch (error) {
-        console.error(error);
-      }
-    }
+      );;
 
+      if (response.ok) {
+        const data = await response.json();
+        console.log("this is the question id ", data);
+        setQuestion(data);
+      } else {
+        console.error('Failed to fetch question');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  useEffect(() => {
     fetchQuestion();
-  }, [exerciseId, languageId]);
+  }, []);
 
   const handleAnswerSelect = (answer) => {
     if (selectedAnswer === answer) {

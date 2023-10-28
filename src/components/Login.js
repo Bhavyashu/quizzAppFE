@@ -39,6 +39,8 @@ const Login = () => {
         body: requestBodyJSON,
       }
     );
+    console.log(`this is the response login : ${response.data}`);
+    
     if (response.status === 200) {
       const data = await response.json();
       console.log(data);

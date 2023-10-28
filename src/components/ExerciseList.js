@@ -123,13 +123,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import backgroundImage from "../images/exercise-bg.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faL } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 function ExerciseList() {
   const navigate = useNavigate();
   const { languageId } = useParams();
   const [exercises, setExercises] = useState([]);
+  const [exerciseFetched, setExerciseFetched] = useState(false);
   const [error, setError] = useState(null);
   const handleBackClick = () => {
     navigate(-1);
@@ -175,14 +176,16 @@ function ExerciseList() {
         }
 
         const data = await response.json();
+        setExerciseFetched(true);
         setExercises(data);
       } catch (err) {
         setError(err.message);
       }
     };
+    console.log('i fire once');
 
     fetchExercises();
-  }, [languageId]);
+  });
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -190,14 +193,17 @@ function ExerciseList() {
 
   return (
     <div className="exercise-background-container">
+      <div className="background-image-container">
+      </div>
       <div
-        style={{ marginLeft: "10px", marginTop: "8%", position: "relative" }}
+        style={{ position: "relative" }}
       >
         <div
           style={{
             background: "rgba(0, 0, 0, 0.6)", // Black background with 60% opacity
             padding: "10px",
             borderRadius: "4px",
+            marginTop: "5%",
             display: "inline-block",
           }}
         >
@@ -215,73 +221,84 @@ function ExerciseList() {
             Back
           </span>
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center", // Center the cards horizontally
-            margin: "0 20px",
-          }}
-        >
-          {exercises.map((exercise) => (
-            <div className="card" style={cardStyles} key={exercise._id}>
-              <div className="card-body" style={cardContainerStyles}>
-                {console.log(`this is the exerciseId : ${exercise._id}`)}
-                <div className="card-body">
-                  <h5 className="card-title">{exercise.name}</h5>
-                  <p className="card-text">
-                    <strong>Description:</strong>
-                    <div
-                      style={{
-                        maxHeight: "120px",
-                        overflow: "auto",
-                      }}
-                    >
-                      {exercise.description}
-                    </div>
-                    <br />
-                    <strong>Questions:</strong> {exercise.Questions}
-                    <div className="progress">
+        {(exercises.length === 0 && exerciseFetched) ? (
+          // Display modal when no exercises are available
+          <div className="exer-modal">
+            <div className="modal-content">
+              <p>
+                Our Team is currently working on making exercise for this language
+                Until then, please try another language.
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center", // Center the cards horizontally
+              margin: "0 20px",
+            }}
+          >
+            {exercises.map((exercise) => (
+              <div className="card" style={cardStyles} key={exercise._id}>
+                <div className="card-body" style={cardContainerStyles}>
+                  <div className="card-body">
+                    <h5 className="card-title">{exercise.name}</h5>
+                    <p className="card-text">
+                      <strong>Description:</strong>
                       <div
-                        className="progress-bar bg-danger"
-                        role="progressbar"
                         style={{
-                          width: `${
-                            (exercise.completed / exercise.Questions) * 100
-                          }%`,
+                          maxHeight: "120px",
+                          overflow: "auto",
                         }}
-                        aria-valuenow={
-                          (exercise.completed / exercise.Questions) * 100
-                        }
-                        aria-valuemin="0"
-                        aria-valuemax="100"
                       >
-                        {Math.round(
-                          (exercise.completed / exercise.Questions) * 100
-                        )}
-                        %
+                        {exercise.description}
                       </div>
-                    </div>
-                    {exercise.completed !== exercise.Questions && ( // Conditional rendering for "Attend Quiz" button
-                      <div style={{ marginTop: "10px" }}>
-                      <Link
-                        to={`/quiz/${exercise._id}/${languageId}`}
-                        className="btn btn-primary"
-                      >
-                        Attend Quiz
-                      </Link>
+                      <br />
+                      <strong>Questions:</strong> {exercise.Questions}
+                      <div className="progress">
+                        <div
+                          className="progress-bar bg-danger"
+                          role="progressbar"
+                          style={{
+                            width: `${
+                              (exercise.completed / exercise.Questions) * 100
+                            }%`,
+                          }}
+                          aria-valuenow={
+                            (exercise.completed / exercise.Questions) * 100
+                          }
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        >
+                          {Math.round(
+                            (exercise.completed / exercise.Questions) * 100
+                          )}
+                          %
+                        </div>
                       </div>
-                    )}
-                  </p>
+                      {exercise.completed !== exercise.Questions && ( // Conditional rendering for "Attend Quiz" button
+                        <div style={{ marginTop: "10px" }}>
+                          <Link
+                            to={`/quiz/${exercise._id}/${languageId}`}
+                            className="btn btn-primary"
+                          >
+                            Attend Quiz
+                          </Link>
+                        </div>
+                      )}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
+  
 }
 
 export default ExerciseList;
