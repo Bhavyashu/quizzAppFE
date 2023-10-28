@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-import InputField from "./services/ InputField"
+import InputField from "./services/ InputField";
 import LanguageSelection from "./services/selectionBox";
 import toast from 'react-hot-toast';
-import axios from 'axios'; // Import the axios library
+import axios from 'axios';
 import base_url from "../constants";
+import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -14,6 +14,39 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
+
+  const [languages, setLanguages] =  useState({}); // State to hold available languages
+  const sampleLanguages = ["English", "French", "Japanese", "Portuguese"];
+  const [availableLanguages, setAvailableLanguages] = useState([]);
+  const [searchedLanguages, setSearchedLanguages] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+
+  // Fetch available languages from the backend on component load
+  useEffect(() => {
+    const fetchLanguages = async () => {
+      try {
+        const response = await axios.get(`${base_url}/admin/getLanguages`);
+        if (response.status === 200 && response.data) {
+          // console.log(`this is the response data ${response.data}`)
+          const langArray = [];
+          const languagesData = response.data.reduce((acc, language) => {
+            acc[language.name] = language._id;
+            langArray.push(`${language.name}`);
+            return acc;
+          }, {});
+
+          setAvailableLanguages(langArray);
+          setLanguages(languagesData);
+          // console.log(languages);
+        }
+      } catch (error) {
+        console.error("Error fetching languages:", error);
+      }
+    };
+  
+    fetchLanguages();
+  }, []);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -31,24 +64,17 @@ const Register = () => {
     setConfirmPassword(event.target.value);
   };
 
-  const samplelanguages = ["English", "French", "Japanese", "Portuguese"];
-  const [searchedLanguages, setSearchedLanguages] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
-
   const handleSearchLanguages = (event) => {
     const LanguagesToSearch = event.target.value;
     setSearchedLanguages(LanguagesToSearch);
-  
-    // Clear search results when the search input is empty
+
     if (LanguagesToSearch === '') {
       setSearchResults([]);
     } else {
-      // Filter the sample languages based on the search query
-      const filteredlanguages = samplelanguages.filter((language) =>
+      const filteredLanguages = availableLanguages.filter((language) =>
         language.toLowerCase().includes(LanguagesToSearch.toLowerCase())
       );
-      setSearchResults(filteredlanguages);
+      setSearchResults(filteredLanguages);
     }
   };
 
@@ -60,115 +86,120 @@ const Register = () => {
   };
 
   const handleAddLanguages = (language) => {
+    console.log(`this is the added language: ${language}`);
+    console.log(`selected languages: ${selectedLanguages},`);
     if (!selectedLanguages.includes(language)) {
+      console.log("here");
       setSelectedLanguages([...selectedLanguages, language]);
-      setSearchedLanguages(""); // Clear the search input
-      setSearchResults([]); // Clear search results
+      setSearchedLanguages("");
+      setSearchResults([]);
     }
   };
 
+  const handleSignUp = async () => {
+    const langIdArray = [];
+    selectedLanguages.forEach((language) => {
+      const languageId = languages[language];
+      langIdArray.push(languageId);
+    });
+    console.log(`selected languages: ${selectedLanguages}`);
+    console.log(`selected languages ID: ${langIdArray}`);
 
-// Inside the handleSignUp function
-const handleSignUp = async () => {
-  const registrationData = {
-    name: username,
-    email: email,
-    password: password,
-    preferred_languages: selectedLanguages, // Assuming selectedLanguages is an array of language names
-  };
+    const registrationData = {
+      name: username,
+      email: email,
+      password: password,
+      preferred_languages: langIdArray,
+    };
 
-  try {
-    const response = await axios.post(
-      `${base_url}/user/register`,
-      registrationData
-    );
+    try {
+      const response = await axios.post(
+        `${base_url}/user/register`,
+        registrationData
+      );
 
-    if (response.status === 200 && response.data.status === true) {
-      // Registration successful
-      toast.success("User registered successfully"); // Show a success toast
-      // Redirect to the login page
-      navigate('/Login'); // You'll need to use the `history` object to handle the route change
-    } else {
-      // Handle other responses (client-side errors, server errors)
-      toast.error(response.data.message); // Display the error message from the server
+      if (response.status === 200 && response.data.status === true) {
+        toast.success("User registered successfully");
+        navigate('/Login');
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error("Registration failed. Please try again.");
     }
-  } catch (error) {
-    console.error("Registration error:", error);
-    toast.error("Registration failed. Please try again."); // Show an error toast
-  }
-};
-
-  
+  };
 
   return (
-  <div className="container vh-100 mt-5">
-    <div className="row justify-content-center">
-      <div className="col-md-6">
-        <div className="card">
-          <div className="card-body">
-            <h2 className="card-title text-center">Sign Up</h2>
-          <form className="register-form">
-            <InputField
-              label="Username"
-              type="text"
-              id="username"
-              placeholder="Enter username"
-              value={username}
-              onChange={handleUsernameChange}
-            />
-            <InputField
-              label="Email"
-              type="email"
-              id="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={handleEmailChange}
-            />
-            <InputField
-              label="Password"
-              type="password"
-              id="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-            <InputField
-              label="Confirm Password"
-              type="password"
-              id="confirmPassword"
-              placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-            />
-            <div className="mt-3"></div>
-            <LanguageSelection
+    <div className="container vh-100 mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title text-center">Sign Up</h2>
+              <form className="register-form">
+                <InputField
+                  label="Username"
+                  type="text"
+                  id="username"
+                  placeholder="Enter username"
+                  value={username}
+                  onChange={handleUsernameChange}
+                />
+                <InputField
+                  label="Email"
+                  type="email"
+                  id="email"
+                  placeholder="Enter email"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+                <InputField
+                  label="Password"
+                  type="password"
+                  id="password"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                />
+                <InputField
+                  label="Confirm Password"
+                  type="password"
+                  id="confirmPassword"
+                  placeholder="Confirm password"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                />
+                <div className="mt-3"></div>
+                <LanguageSelection
                   searchedLanguages={searchedLanguages}
                   searchResults={searchResults}
                   selectedLanguages={selectedLanguages}
                   handleSearchLanguages={handleSearchLanguages}
                   handleAddLanguages={handleAddLanguages}
                   handleRemoveLanguages={handleRemoveLanguages}
-                  sampleLanguages={samplelanguages}
+                  availableLanguages={languages}
+                  sampleLanguages={sampleLanguages}
                 />
-            <button
-              type="button"
-              className="btn btn-primary btn-block btn-lg mt-3"
-              onClick={handleSignUp}
-            >
-              Sign Up
-            </button>
-          </form>
-          <div className="text-center mt-3">
-            Have an account?<span> </span>
-            <Link className="text-primary" to="/Login">
-              Sign In
-            </Link>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-block btn-lg mt-3"
+                  onClick={handleSignUp}
+                >
+                  Sign Up
+                </button>
+              </form>
+              <div className="text-center mt-3">
+                Have an account?<span> </span>
+                <Link className="text-primary" to="/Login">
+                  Sign In
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
   );
 };
 

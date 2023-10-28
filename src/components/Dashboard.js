@@ -136,6 +136,7 @@ function LanguageCards() {
   const [data, setData] = useState([]);
   const [selectedLanguageId, setSelectedLanguageId] = useState(null);
   const [error, setError] = useState(null);
+  const name = localStorage.getItem('name');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -174,7 +175,11 @@ function LanguageCards() {
   return (
     <div className="language-container">
       <div className="container" style={{ paddingTop: "80px" }}>
-        <div className="row mt-4">
+      <div style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px', color: '#CE5A67' }}>
+      <h1>Hey, <span style={{ textTransform: 'capitalize' }}>{name}</span> 👋</h1>
+      </div>
+      <h3 style={{ color: '#CE5A67', textAlign: 'center' }}>Your Selected Languages</h3>
+      <div className="row mt-4" style={{ display: 'flex', justifyContent: 'center' }}>
           {data.map((item) => {
             console.log(`this is the item ${item}`);
             return <LanguageCard key={item.language._id} language={item} />;
