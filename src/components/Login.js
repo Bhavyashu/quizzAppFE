@@ -111,7 +111,7 @@ const Login = () => {
                 type="text"
                 id="username"
                 className="form-control"
-                placeholder="Enter username"
+                placeholder="Enter Email"
                 onChange={handleUsernameChange}
                 value={username}
               />
