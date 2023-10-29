@@ -8,10 +8,6 @@ import base_url from "../constants";
 const customStyle = {
   backgroundColor: '#444',
 };
-const progressBar = {
-  // backgroundColor: '#0F0F0F',
-  // color: 'yellow'
-};
 
 const UserProgressPage = () => {
   const [userData, setUserData] = useState([]);
@@ -61,13 +57,18 @@ const UserProgressPage = () => {
                   <div className="circular-progress" style={customStyle}>
                   <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}>
                   <CircularProgress
-                    aria-label="Loading..."
                     size="lg"
-                    determine 
-                    value={(exercise.completedQuestions / exercise.totalQuestions) * 100}
-                    color="warning"
+                    sx={{
+                    backgroundColor: '',
+                    color : 'black',
+                    }}
+                    determinate value={(exercise.completedQuestions / exercise.totalQuestions) * 100}
+                    color="primary"
                     showValueLabel={true}
-                  />
+                    variant="outlined"
+                  >
+                    {(exercise.completedQuestions / exercise.totalQuestions) * 100 +"%"}
+                    </CircularProgress>
                     </Box>
                   </div>
                 </div>
