@@ -28,7 +28,6 @@ const UserProgressPage = () => {
         });
      
         const userProgressData = response.data.data;
-        console.log(`this is the user data`, userProgressData);
         setUserData(userProgressData);
       } catch (error) {
         // Handle error

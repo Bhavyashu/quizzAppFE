@@ -40,7 +40,6 @@ const QuizPage = () => {
   
       if (response.status === 200) {
         const data = await response.json();
-        console.log( `this is the data `, data);
         if(Object.keys(data).length>1){
         if(data.previousAnswer){
           toast('Good Job! Right Answer', {
@@ -88,7 +87,6 @@ const QuizPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("this is the question id ", data);
         setQuestion(data);
       } else {
         console.error('Failed to fetch question');
@@ -112,7 +110,6 @@ const QuizPage = () => {
 
   const handleAnswerSelect = (answer) => {
     if (selectedAnswer === answer) {
-      console.log(answer);
       setSelectedAnswer(null); // Deselect the option
     } else {
       setSelectedAnswer(answer);

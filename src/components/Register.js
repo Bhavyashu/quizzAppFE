@@ -28,7 +28,7 @@ const Register = () => {
       try {
         const response = await axios.get(`${base_url}/admin/getLanguages`);
         if (response.status === 200 && response.data) {
-          // console.log(`this is the response data ${response.data}`)
+
           const langArray = [];
           const languagesData = response.data.reduce((acc, language) => {
             acc[language.name] = language._id;
@@ -38,7 +38,6 @@ const Register = () => {
 
           setAvailableLanguages(langArray);
           setLanguages(languagesData);
-          // console.log(languages);
         }
       } catch (error) {
         console.error("Error fetching languages:", error);
@@ -86,10 +85,7 @@ const Register = () => {
   };
 
   const handleAddLanguages = (language) => {
-    console.log(`this is the added language: ${language}`);
-    console.log(`selected languages: ${selectedLanguages},`);
     if (!selectedLanguages.includes(language)) {
-      console.log("here");
       setSelectedLanguages([...selectedLanguages, language]);
       setSearchedLanguages("");
       setSearchResults([]);
@@ -102,8 +98,7 @@ const Register = () => {
       const languageId = languages[language];
       langIdArray.push(languageId);
     });
-    console.log(`selected languages: ${selectedLanguages}`);
-    console.log(`selected languages ID: ${langIdArray}`);
+
 
     const registrationData = {
       name: username,
