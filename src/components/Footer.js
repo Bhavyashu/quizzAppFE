@@ -18,10 +18,10 @@ import {
 
 export default function App() {
   return (
-    <footer className="bg-light text-center text-lg-start text-muted">
+    <footer className="bg-#1A1A2E text-center text-lg-start text-muted">
       <section
         className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
-        style={{ backgroundColor: "#4455a4", color: "white" }}
+        style={{ backgroundColor: "#1A1A2E", color: "white" }}
       >
         <div className="me-5 d-none d-lg-block">
           <span>Get connected with us on social networks:</span>
@@ -56,12 +56,12 @@ export default function App() {
             <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
               <h6 className="text-uppercase fw-bold mb-4">
                 <FontAwesomeIcon icon={faGem} className="me-3" />
-                PRO-QUIZ
+                QUIZZ App
               </h6>
             </div>
 
             <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">TEAM</h6>
+              <h6 className="text-uppercase fw-bold mb-4">Created By</h6>
               <p>Bhavyashu Agarwal</p>
             </div>
 
@@ -79,7 +79,7 @@ export default function App() {
               </p>
               <p>
                 <FontAwesomeIcon icon={faPhone} className="me-3" />
-                <span> </span> + 01 234 567 88
+                <span> </span> + 01 234 567 89
               </p>
             </div>
           </div>
@@ -88,11 +88,11 @@ export default function App() {
 
       <div
         className="text-center p-4"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.05)", color: "#4455a4" }}
+        style={{ backgroundColor: '#1A1A2E', color: "white" }}
       >
         © 2023 Copyright:
         <a className="text-reset fw-bold">
-          <span> </span> ProQuiz Team
+          <span> </span> QUIZZ App
         </a>
       </div>
     </footer>

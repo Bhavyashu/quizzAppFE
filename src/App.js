@@ -9,6 +9,7 @@ import LanguageDetails from "./components/LanguageDetails.js";
 import Leaderboard from "./components/leaderboard.js";
 import ExerciseList from "./components/ExerciseList"; // Adjust the import path
 import QuizComponent from "./components/Quiz.js";
+import UserProgress from "./components/userProgress";
 import toast, { Toaster } from 'react-hot-toast';
 // import './App.css'; // Import your CSS file
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/exercises/:languageId" element={<ExerciseList />} />
           <Route path="/quiz/:exerciseId/:languageId" element={<QuizComponent />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path= "/userProgress" element={<UserProgress />} />
 
         </Routes>
       </Router>

@@ -2,6 +2,8 @@ import React from 'react';
 import logoutImage from "../../images/logout.png";
 import userProfileImage from "../../images/userProfile.png";
 import updateProfileImage from "../../images/settings.png";
+import { Link } from "react-router-dom";
+
 
 
 const NavigationDropdown = ({ onLogout }) => {
@@ -42,9 +44,11 @@ const NavigationDropdown = ({ onLogout }) => {
           />
           Logout
         </button>
+        <div>
+        <Link to='/userProgress' >
         <button
+        
           className="dropdown-item secondary"
-          // Add onClick handlers for other options
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -62,6 +66,8 @@ const NavigationDropdown = ({ onLogout }) => {
           />
           Profile
         </button>
+        </Link>
+        </div>
         <button
           className="dropdown-item secondary"
           // Add onClick handlers for other options

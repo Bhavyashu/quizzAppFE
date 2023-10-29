@@ -175,7 +175,7 @@ function LanguageCards() {
   return (
     <div className="language-container">
       <div className="container" style={{ paddingTop: "80px" }}>
-      <div style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px', color: '#CE5A67' }}>
+      <div style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px', color: '#292B3A;' }}>
       <h1>Hey, <span style={{ textTransform: 'capitalize' }}>{name}</span> 👋</h1>
       </div>
       <h3 style={{ color: '#CE5A67', textAlign: 'center' }}>Your Selected Languages</h3>

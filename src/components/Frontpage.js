@@ -7,7 +7,7 @@ import Footer from "./Footer";
 
 const FrontPage = () => {
   return (
-    <div className="pt-3 mb-3 pb-2" style={{ backgroundColor: "#4455a4" }}>
+    <div className="pt-3 mb-3 pb-2" style={{ backgroundColor: "#1A1A2E" }}>
       <div className="container-fluid pt-5 pb-5">
         <div
           className="row justify-content-center align-items-center"
