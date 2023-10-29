@@ -10,6 +10,9 @@ const Login = () => {
 
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
+  // const navigateToRoot = () =>{
+  //   window.location.href = '/';
+  // }
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -53,7 +56,8 @@ const Login = () => {
         toast.success("Successfully logged in");
         // Introduce a delay of 1000 milliseconds (1 second)
         setTimeout(() => {
-          navigate("/dashboard");
+          // navigateToRoot()
+          navigate('/dashboard');
           window.location.reload();
         }, 1000);
       } catch (error) {
@@ -111,7 +115,7 @@ const Login = () => {
                 type="text"
                 id="username"
                 className="form-control"
-                placeholder="Enter Email"
+                placeholder="Enter username"
                 onChange={handleUsernameChange}
                 value={username}
               />
