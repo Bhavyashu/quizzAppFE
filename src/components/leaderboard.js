@@ -84,7 +84,7 @@ const Leaderboard = () => {
         );
 
         const { data } = response;
-        console.log(`this is the data ${JSON.stringify(data)}`);
+        
         setCustomLeaderboardData(data); // Assuming the data is an array of leaderboard items
       } catch (error) {
         console.error("Error fetching custom leaderboard:", error);

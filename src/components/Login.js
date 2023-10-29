@@ -26,7 +26,6 @@ const Login = () => {
       email: username,
       password: password,
     };
-    console.log(requestBody);
     const requestBodyJSON = JSON.stringify(requestBody);
 
     // Calculate the content length
@@ -40,15 +39,11 @@ const Login = () => {
       },
       body: requestBodyJSON,
     });
-    // console.log(`this is the response login : ${response.data}`);
 
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data);
-      const token = data.accessToken;
 
       try {
-        console.log("here", data.data);
         localStorage.setItem("token", data.data.accessToken);
         localStorage.setItem("email", data.data.email);
         localStorage.setItem("name", data.data.name);
@@ -72,7 +67,6 @@ const Login = () => {
 
   const handleSignUp = () => {
     // sign-up logic to be implemented
-    console.log("Sign Up clicked");
   };
 
   const labelStyle = {
