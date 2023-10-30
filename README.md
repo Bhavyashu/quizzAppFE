@@ -49,14 +49,15 @@ To run this application locally on your machine, follow these steps:
 
 5. The application should open in your default web browser at [http://localhost:3000](http://localhost:3000). You can now explore and use the application.
 
+```text
 ## Codebase Structure
 
-The codebase of this application is structured as follows and each file name is relevant to what it's code's logic does.:
+The codebase of this application is structured as follows, and each file name is relevant to its code's logic:
 
 ├── README.md
 ├── package.json
 ├── public/
-|
+│
 └── src
     ├── App.css
     ├── App.js
@@ -65,7 +66,7 @@ The codebase of this application is structured as follows and each file name is 
     │   ├── Frontpage.js
     │   ├── Navbar.js
     │   └── services/
-    │       ├──  InputField.js
+    │       ├── InputField.js
     │       ├── navbarDropdown.js
     │       └── selectionBox.js
     ├── constants.js
@@ -80,6 +81,7 @@ The codebase of this application is structured as follows and each file name is 
     │   ├── userProgress.js
     │   └── userSettings.js
 
+```
 
 The project directory structure includes the main React application files, components, constants, images, and pages.
 
