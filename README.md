@@ -1,4 +1,4 @@
-# React Quiz Application
+# Quiz Application
 
 This is a React-based quiz application that allows users to participate in quizzes and track their progress. The application offers features like user registration, taking quizzes, viewing leaderboards, and monitoring user progress in different languages and exercises.
 
