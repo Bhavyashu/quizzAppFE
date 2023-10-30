@@ -38,6 +38,7 @@ function UserSettings() {
 
     const response = await changeSettings(isAddLanguage, languageId);
     console.log(response);
+    setShowModal(false);
     // toast.success(`language Id ${languageId}, is add language : ${isAddLanguage}`);
   };
 
@@ -96,13 +97,16 @@ function UserSettings() {
 
             
           />
-          <AddLanguages
+          {userData.allLanguages.length!=0?(<AddLanguages
             availableLanguages={userData?.allLanguages}
             setLanguageId = {setLanguageId}
             setIsAddLanguage = {setIsAddLanguage}
             setShowModal = {setShowModal}
             setModalMessage = {setModalMessage}
-          />
+            flag = {true}
+          />):
+          (<div className='language-progress' style = {{backgroundColor:"#162A72"}}><h2 style = {{color:"white"}}>Add Languages</h2><br/><div  style = {{ display:"flex", justifyContent:'center', textAlign:"center", color:"white" }}>You have no more languages left to add!</div></div>)
+          }
         </>
       )}
       <CustomModal

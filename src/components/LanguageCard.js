@@ -26,7 +26,7 @@ function LanguageCard({ data, isAddLanguage = false, setLanguageId,setShowModal,
 
 
 return (
-  <div className="language-card">
+  <div className="language-card" style = {{backgroundColor:"white"}}>
      <div className="lcard-content"> 
     <h3>{isAddLanguage ? data.name : (data.language ? data.language.name : '')}</h3>
     {isAddLanguage ? (
@@ -34,13 +34,13 @@ return (
         <p>Total Questions: {data.total_questions}</p>
         <p>Total Score: {data.total_score}</p>
         <p>Exercises: {data.exercises}</p>
-        <button onClick={() => handleButtonClick()}>+ Add Language</button> {/* Open the modal when clicked */}
+        <button class = "btn btn-primary" onClick={() => handleButtonClick()}>+ Add Language</button> {/* Open the modal when clicked */}
       </>
     ) : (
       <>
         <p>Proficiency: {data.proficiency}</p>
         <p>Score: {data.score}</p>
-        <button onClick={() => handleButtonClick()}>Reset Progress</button> {/* Open the modal when clicked */}
+        <button class = "btn btn-primary" onClick={() => handleButtonClick()}>Reset Progress</button> {/* Open the modal when clicked */}
       </>
     )}
      </div>
