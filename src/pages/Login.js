@@ -11,17 +11,17 @@ import toast from "react-hot-toast";
  * @returns {JSX.Element} The rendered Login component.
  */
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
    /**
-   * Handles changes in the username input field.
+   * Handles changes in the email input field.
    * @param {Object} event - The input change event.
    */
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   /**
@@ -39,7 +39,7 @@ const Login = () => {
    */
   const handleLogin = async (e) => {
     const requestBody = {
-      email: username,
+      email: email,
       password: password,
     };
     const requestBodyJSON = JSON.stringify(requestBody);
@@ -113,16 +113,16 @@ const Login = () => {
           <h2 className="mb-4">Sign In</h2>
           <form style={formStyle}>
             <div className="form-group">
-              <label htmlFor="username" style={labelStyle}>
+              <label htmlFor="email" style={labelStyle}>
                 Email:
               </label>
               <input
                 type="text"
-                id="username"
+                id="email"
                 className="form-control"
-                placeholder="Enter username"
-                onChange={handleUsernameChange}
-                value={username}
+                placeholder="Enter Email"
+                onChange={handleEmailChange}
+                value={email}
               />
             </div>
             <div className="form-group">
