@@ -16,7 +16,15 @@ import {
   faPrint,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function App() {
+
+/**
+ * App is a React component that represents the footer section of a web page.
+ *
+ * @returns {JSX.Element} The rendered footer component.
+ */
+
+
+export default function Footer() {
   return (
     <footer className="bg-#1A1A2E text-center text-lg-start text-muted">
       <section

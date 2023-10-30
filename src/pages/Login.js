@@ -4,23 +4,39 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate instead of
 import base_url from "../constants";
 import toast from "react-hot-toast";
 
+
+/**
+ * Login is a React component that handles user login.
+ *
+ * @returns {JSX.Element} The rendered Login component.
+ */
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
-  // const navigateToRoot = () =>{
-  //   window.location.href = '/';
-  // }
+   /**
+   * Handles changes in the username input field.
+   * @param {Object} event - The input change event.
+   */
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
 
+  /**
+   * Handles changes in the password input field.
+   * @param {Object} event - The input change event.
+   */
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
+
+   /**
+   * Handles the login process.
+   * Makes an API request to log in the user.
+   */
   const handleLogin = async (e) => {
     const requestBody = {
       email: username,
@@ -51,7 +67,6 @@ const Login = () => {
         toast.success("Successfully logged in");
         // Introduce a delay of 1000 milliseconds (1 second)
         setTimeout(() => {
-          // navigateToRoot()
           navigate('/dashboard');
           window.location.reload();
         }, 1000);
@@ -63,10 +78,6 @@ const Login = () => {
       toast.error(`Error : ${data.message}`);
       const token = data.my_token;
     }
-  };
-
-  const handleSignUp = () => {
-    // sign-up logic to be implemented
   };
 
   const labelStyle = {
@@ -140,7 +151,6 @@ const Login = () => {
             Don't have an account?{" "}
             <Link
               className="text-primary"
-              onClick={handleSignUp}
               to="/Register"
             >
               Sign Up

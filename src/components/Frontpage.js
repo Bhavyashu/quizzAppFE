@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 
 import Footer from "./Footer";
 
+/**
+ * FrontPage is a React component that represents the front page of a web application.
+ *
+ * @returns {JSX.Element} The rendered front page component.
+ */
 const FrontPage = () => {
   return (
     <div className="pt-3 mb-3 pb-2" style={{ backgroundColor: "#1A1A2E" }}>

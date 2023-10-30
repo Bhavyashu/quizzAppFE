@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import InputField from "./services/ InputField";
-import LanguageSelection from "./services/selectionBox";
+import InputField from "../components/services/ InputField";
+import LanguageSelection from "../components/services/selectionBox";
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import base_url from "../constants";
-import { faRetweet } from "@fortawesome/free-solid-svg-icons";
 
+
+/**
+ * Register is a React component for user registration.
+ *
+ * @returns {JSX.Element} The rendered Register component.
+ */
 const Register = () => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -47,8 +52,8 @@ const Register = () => {
     fetchLanguages();
   }, []);
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
   const handleEmailChange = (event) => {
@@ -101,7 +106,7 @@ const Register = () => {
 
 
     const registrationData = {
-      name: username,
+      name: name,
       email: email,
       password: password,
       preferred_languages: langIdArray,
@@ -115,7 +120,11 @@ const Register = () => {
 
       if (response.status === 200 && response.data.status === true) {
         toast.success("User registered successfully");
-        navigate('/Login');
+        setTimeout(() => {
+          navigate('/Login');
+          window.location.reload();
+        }, 1000);
+        
       } else {
         toast.error(response.data.message);
       }
@@ -134,12 +143,12 @@ const Register = () => {
               <h2 className="card-title text-center">Sign Up</h2>
               <form className="register-form">
                 <InputField
-                  label="Username"
+                  label="Name"
                   type="text"
-                  id="username"
-                  placeholder="Enter username"
-                  value={username}
-                  onChange={handleUsernameChange}
+                  id="name"
+                  placeholder="Enter Name"
+                  value={name}
+                  onChange={handleNameChange}
                 />
                 <InputField
                   label="Email"

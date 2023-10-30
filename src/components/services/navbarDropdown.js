@@ -5,7 +5,14 @@ import updateProfileImage from "../../images/settings.png";
 import { Link } from "react-router-dom";
 
 
-
+/**
+ * NavigationDropdown is a React component that renders a dropdown menu of navigation options.
+ *
+ * @param {Object} props - The component's properties.
+ * @param {function} props.onLogout - A callback function to handle the logout action.
+ *
+ * @returns {JSX.Element} The rendered navigation dropdown component.
+ */
 const NavigationDropdown = ({ onLogout }) => {
   return (
     <div className="btn-group">
@@ -64,7 +71,7 @@ const NavigationDropdown = ({ onLogout }) => {
               height: '24px',
             }}
           />
-          Profile
+          Progress
         </button>
         </Link>
         </div>
