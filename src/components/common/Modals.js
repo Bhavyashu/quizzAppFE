@@ -16,4 +16,17 @@ function CustomModal({ isOpen, onClose, onConfirm, message }) {
   );
 }
 
-export default CustomModal;
+function NoExercisesModal() {
+  return (
+    <div className="exer-modal">
+      <div className="modal-content">
+        <p>
+          Our Team is currently working on making exercises for this language.
+          Until then, please try another language.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export {CustomModal,NoExercisesModal};

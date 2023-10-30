@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Box from '@mui/joy/Box';
-import axios from 'axios'; // Import axios for making HTTP requests
-// import "../components/services/progress.css"; // Import your CSS file for styling
-import base_url from "../constants";
 import  toast  from "react-hot-toast";
+import { get } from "../api/api";
 
 const customStyle = {
   backgroundColor: '#444',
@@ -28,36 +26,30 @@ const UserProgressPage = () => {
      */
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${base_url}/user/progress`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
+        const endpoint = `/user/progress`
+        const data = await get(endpoint);
         
         /**
          * Data containing user progress details.
          * @type {Array}
          */
-        if(!response.data.status){
+        if(!data){
           toast.error("error fetching user progress data from backend server");
         }
-        if(!response.data.data.length){
+        if(!data.length){
           toast('You have not attended any questions in any languages, please comeback once you answered them', {
             icon: `😕`,
           });
-
           setTimeout(() => {
             navigate('/dashboard');
             window.location.reload();
           }, 1000);
         }
-     
-        const userProgressData = response.data.data;
-        setUserData(userProgressData);
+
+        setUserData(data);
+
       } catch (error) {
-        // Handle error
+        toast.error("error setting user progress data");
         console.error("Error fetching user progress data:", error);
       }
     };

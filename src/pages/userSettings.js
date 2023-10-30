@@ -5,7 +5,7 @@ import { get, post } from '../api/api';
 import changeSettings from '../api/util';
 import toast from 'react-hot-toast';
 import Dashboard from './Dashboard';
-import CustomModal from '../components/Modal';
+import { CustomModal}  from '../components/common/Modals';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 
 function UserSettings() {

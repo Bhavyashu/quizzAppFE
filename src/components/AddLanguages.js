@@ -1,5 +1,5 @@
 import React from 'react';
-import LanguageCard from './LanguageCard';
+import { LanguageCard }from './common/Cards';
 
 function AddLanguages({ availableLanguages, setLanguageId, setShowModal,
   setIsAddLanguage, 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
-import base_url from "../constants";
 import toast from "react-hot-toast";
 import { post } from "../api/api";
 
@@ -44,18 +43,16 @@ const Login = () => {
     };
 
     try {
-    const response = await post(`/user/login`, requestBody);
-      const data = response;
-
-        localStorage.setItem("token", data.data.accessToken);
-        localStorage.setItem("email", data.data.email);
-        localStorage.setItem("name", data.data.name);
+    const data = await post(`/user/login`, requestBody);
+        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("name", data.name);
         toast.success("Successfully logged in");
 
         // Introduce a delay of 1000 milliseconds (1 second)
         setTimeout(() => {
           navigate('/dashboard');
-          window.location.reload();
+          window.location.reload(); // reload so the navbar can show other things, there might be better solution than this ig
         }, 1000);
       } catch (error) {
         toast.error("Error signing in the user");

@@ -2,6 +2,9 @@ import axios from "axios";
 import base_url from "../constants";
 import toast from "react-hot-toast";
 
+const excludeTokenUrls = ['//user/login']
+
+
 async function get(endpoint) {
   const token = localStorage.getItem("token");
 
@@ -15,9 +18,9 @@ async function get(endpoint) {
     });
 
     if (response.status === 200) {
-      return response.data;
+      return response.data.data;
     } else {
-      toast.error("GET request failed with status:", response.status);
+      toast.error("GET request failed message:", response.message);
       console.error("GET request failed with status:", response.status);
       return null;
     }
@@ -29,7 +32,7 @@ async function get(endpoint) {
 }
 
 async function post(endpoint, data) {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token") ;
 
   try {
     const response = await axios.post(`${base_url}${endpoint}`, data, {
@@ -39,14 +42,16 @@ async function post(endpoint, data) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(JSON.stringify(response,null,2));
-    if (response.status === 200) { 
-      return response.data;
+
+    if (response.status === 200 ) { 
+      return response.data.data || response.data.status;
     } else {
-      console.error("POST request failed with status:", response.status);
+      toast.error("POST request failed message:", response.message);
+      console.log("POST request failed details:", response);
       return null;
     }
   } catch (error) {
+    toast.error("An error occurred during the POST request:", error.message);
     console.error("An error occurred during the POST request:", error);
     throw error;
   }

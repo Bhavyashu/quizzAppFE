@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import base_url from '../constants';
 import toast from 'react-hot-toast';
-// import '../App.css';
-
-
+import { get, post } from "../api/api";
 
 
 
@@ -34,24 +31,23 @@ const QuizPage = () => {
 
   const verifyAnswer = async (question, selectedAnswer) => {
     try {
-      const endpoint = `${base_url}/quiz/verifyAnswer`;
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          qid: question._id,
-          answer: selectedAnswer,
-          difficulty: question.Difficulty_level,
-          excerId: exerciseId,
-          langId: languageId,
-        }),
-      });
+      const endpoint = `/quiz/verifyAnswer`;
+
+      const requestData  = {
+        qid: question._id,
+        answer: selectedAnswer,
+        difficulty: question.Difficulty_level,
+        excerId: exerciseId,
+        langId: languageId,
+      }
+      const data = await post(endpoint, requestData);
+
+      if (!data) {
+        toast.error("Failed to fetch questions");
+        throw new Error("Failed to fetch questions");
+      }
   
-      if (response.status === 200) {
-        const data = await response.json();
+      if (data) {
         if(Object.keys(data).length>1){
         if(data.previousAnswer){
           toast('Good Job! Right Answer', {
@@ -68,10 +64,10 @@ const QuizPage = () => {
           toast(' MAD RESPECT ! You have answered all the questions for this exercise please check another exercise !', {
             icon: '🫡',
           });
+          setTimeout(() => {
+            navigate(-1);
+          }, 1000);
         }
-      } else if (response.status === 500) {
-        console.error('Internal error occurred');
-        toast.error('Internal error occurred');
       } else {
         console.error('Failed to verify answer');
         toast.error('Failed to verify answer');
@@ -91,18 +87,17 @@ const QuizPage = () => {
   async function fetchQuestion() {
     try {
       setQuestion({});
-      const endpoint = `${base_url}/quiz/question?eid=${exerciseId}&lid=${languageId}`;
-      const response = await fetch(endpoint,{
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );;
 
-      if (response.ok) {
-        const data = await response.json();
+      const data = await get(
+        `/quiz/question?eid=${exerciseId}&lid=${languageId}`
+      );
+
+      if (!data) {
+        toast.error("Failed to fetch questions");
+        throw new Error("Failed to fetch questions");
+      }
+
+      if (data) {
         setQuestion(data);
       } else {
         console.error('Failed to fetch question');

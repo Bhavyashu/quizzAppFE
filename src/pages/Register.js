@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import InputField from "../components/services/ InputField";
-import LanguageSelection from "../components/services/selectionBox";
+import InputField from "../components/common/ InputField";
+import LanguageSelection from "../components/common/selectionBox";
 import toast from 'react-hot-toast';
-import axios from 'axios';
 import { get, post } from '../api/api'
-import base_url from "../constants";
 
 
 /**
@@ -32,11 +30,10 @@ const Register = () => {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const response = await axios.get(`${base_url}/admin/getLanguages`);
-        if (response.status === 200 && response.data) {
-
+        const data = await get(`/admin/getLanguages`);
+        if (data) {
           const langArray = [];
-          const languagesData = response.data.reduce((acc, language) => {
+          const languagesData = data.reduce((acc, language) => {
             acc[language.name] = language._id;
             langArray.push(`${language.name}`);
             return acc;
@@ -114,12 +111,12 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post(
-        `${base_url}/user/register`,
+      const data = await post(
+        `/user/register`,
         registrationData
       );
 
-      if (response.status === 200 && response.data.status === true) {
+      if (data) {
         toast.success("User registered successfully");
         setTimeout(() => {
           navigate('/Login');
@@ -127,11 +124,12 @@ const Register = () => {
         }, 1000);
         
       } else {
-        toast.error(response.data.message);
+        toast.error('no data received');
+        console.log(data);
       }
     } catch (error) {
       console.error("Registration error:", error);
-      toast.error("Registration failed. Please try again.");
+      toast.error("Registration failed. Please try again later.");
     }
   };
 
