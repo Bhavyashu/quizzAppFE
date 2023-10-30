@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
 import base_url from "../constants";
 import toast from "react-hot-toast";
-
+import { post } from "../api/api";
 
 /**
  * Login is a React component that handles user login.
@@ -42,42 +42,25 @@ const Login = () => {
       email: email,
       password: password,
     };
-    const requestBodyJSON = JSON.stringify(requestBody);
 
-    // Calculate the content length
-    const contentLength = new TextEncoder().encode(requestBodyJSON).length;
+    try {
+    const response = await post(`/user/login`, requestBody);
+      const data = response;
 
-    const response = await fetch(`${base_url}/user/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Content-Length": contentLength.toString(), // Add Content-Length to the headers
-      },
-      body: requestBodyJSON,
-    });
-
-    if (response.status === 200) {
-      const data = await response.json();
-
-      try {
         localStorage.setItem("token", data.data.accessToken);
         localStorage.setItem("email", data.data.email);
         localStorage.setItem("name", data.data.name);
-        // localStorage.setItem("languages", data.data.language);
         toast.success("Successfully logged in");
+
         // Introduce a delay of 1000 milliseconds (1 second)
         setTimeout(() => {
           navigate('/dashboard');
           window.location.reload();
         }, 1000);
       } catch (error) {
-        console.error("Error setting token in localStorage:", error);
+        toast.error("Error signing in the user");
+        console.error("Error signing in:", error);
       }
-    } else {
-      const data = await response.json();
-      toast.error(`Error : ${data.message}`);
-      const token = data.my_token;
-    }
   };
 
   const labelStyle = {

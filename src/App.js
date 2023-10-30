@@ -10,6 +10,7 @@ import ExerciseList from "./pages/ExerciseList"; // Adjust the import path
 import QuizComponent from "./pages/Quiz.js";
 import UserProgress from "./pages/userProgress";
 import toast, { Toaster } from 'react-hot-toast';
+import UserSettings from './pages/userSettings.js'
 import "./App.css"
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/quiz/:exerciseId/:languageId" element={<QuizComponent />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path= "/userProgress" element={<UserProgress />} />
+          <Route path="/userSettings" element={<UserSettings />} />
 
         </Routes>
       </Router>

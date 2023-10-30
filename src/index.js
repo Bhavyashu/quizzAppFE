@@ -13,9 +13,9 @@ const renderApp = () => {
   } else {
     // Render in StrictMode for other environments
     root.render(
-      <React.StrictMode>
+      // <React.StrictMode>
         <App />
-      </React.StrictMode>
+      // </React.StrictMode>
     );
   }
 };

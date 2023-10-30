@@ -1,145 +1,118 @@
-// import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
-// import Modal from 'react-bootstrap/Modal';
-// import Button from 'react-bootstrap/Button';
-// import ExerciseList from "./ExerciseList";
-// import base_url from "../constants";
-// import bgImage from "../images/lan.jpg"
+import React, { useState, useEffect } from 'react';
+import LanguageProgress from '../components/LanguageProgress';
+import AddLanguages from '../components/AddLanguages';
+import { get, post } from '../api/api';
+import changeSettings from '../api/util';
+import toast from 'react-hot-toast';
+import Dashboard from './Dashboard';
+import CustomModal from '../components/Modal';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
-// function LanguageCard({ language: card }) {
-//   const [showResetModal, setShowResetModal] = useState(false);
-//   const [showAddLanguageModal, setShowAddLanguageModal] = useState(false);
-//   const [languageToReset, setLanguageToReset] = useState(null);
+function UserSettings() {
+  const [userData, setUserData] = useState(false);
+  const [showModal, setShowModal] = useState(false); // New state for modal
+  const [modalMessage, setModalMessage] = useState('');
+  const[isAddLanguage,setIsAddLanguage] = useState(false);
+  const[languageId, setLanguageId] = useState(null);
 
-//   const handleResetClick = (languageId) => {
-//     setLanguageToReset(languageId);
-//     setShowResetModal(true);
-//   };
 
-//   const resetLanguage = async () => {
-//     try {
-//       const response = await fetch(`${base_url}/quiz/reset-progress/${languageToReset}`, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           authorization: "Bearer " + localStorage.getItem("token"),
-//         },
-//       });
-
-//       if (response.ok) {
-//         // Handle success
-//         // You might want to reload the data here or update the UI
-//       } else {
-//         // Handle error
-//       }
-//     } catch (err) {
-//       // Handle error
+//   const modalHandler = (isAddLanguage, languageId, languageName) => {
+//     setShowModal(true);
+//     if (isAddLanguage) {
+//       setIsAddLanguage(true);
+//       setModalMessage(
+//         `Are you sure you want to add ${languageName} in your learning track?`
+//       );
+//       setLanguageId(languageId);
+//     } else {
+//       setIsAddLanguage(false);
+//       setModalMessage(
+//         `Are you sure you want to reset progress for ${languageName} ?`
+//       );
+//       setLanguageId(languageId);
 //     }
 //   };
 
-//   return (
-//     <div className="col-md-4 mb-4">
-//       <div className="card border border-primary" style={{ backgroundColor: "#222", color: "#fff" }}>
-//         <div className="card-body">
-//           <h5 className="card-title">{card.language.name}</h5>
-//           <p className="card-text" style={{ color: "#999" }}>
-//             Proficiency: {card.proficiency}
-//             <br />
-//             Score: {card.score}
-//           </p>
-//           <Link to={`/exercises/${card.language._id}`}>
-//             <button
-//               className="btn btn-primary btn-block"
-//               style={{ backgroundColor: "#007bff", color: "#fff" }}
-//             >
-//               Explore Exercise
-//             </button>
-//           </Link>
-//           <button
-//             className="btn btn-danger btn-block"
-//             style={{ backgroundColor: "#FF0000", color: "#fff" }}
-//             onClick={() => handleResetClick(card.language._id)}
-//           >
-//             Reset Progress
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
-// function LanguageCards() {
-//   const [data, setData] = useState([]);
-//   const [selectedLanguageId, setSelectedLanguageId] = useState(null);
-//   const [error, setError] = useState(null);
-//   const name = localStorage.getItem('name');
+  const handleConfirmAction = async() => {
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await fetch(`${base_url}/quiz/languages`, {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "application/json",
-//             authorization: "Bearer " + localStorage.getItem("token"),
-//           },
-//         });
+    const response = await changeSettings(isAddLanguage, languageId);
+    console.log(response);
+    // toast.success(`language Id ${languageId}, is add language : ${isAddLanguage}`);
+  };
 
-//         if (!response.ok) {
-//           throw new Error("Failed to fetch data");
-//         }
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
 
-//         const data = await response.json();
-//         if (data && data.data && Array.isArray(data.data.preferred_language)) {
-//           setData(data.data.preferred_language);
-//         } else {
-//           setError("Invalid API response structure");
-//         }
-//       } catch (err) {
-//         setError(err.message);
-//       }
-//     };
+  const getLangData = async () => {
+    try{
+        const response = await get('/user/getlanguages');
+        console.log("RESPONSE RECEIVED", response);
+        // console.log(`this is the data ${response}`);
+        return response;
 
-//     fetchData();
-//   }, []);
+    }catch(error){
+        toast.error('error occured fetching user data');
+        console.log(error);
+    }
+  };
 
-//   const handleAddLanguageClick = () => {
-//     setShowAddLanguageModal(true);
-//     // Fetch available languages and update state if needed
-//   };
+  
+  useEffect(() => {
+    
+    getLangData()
+      .then((data) => {                               
+        console.log(    `this is the data in uf ${data.preffered_languge}`);
+        setUserData(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching user data', error);
+      });
+  }, []);
 
-//   const addLanguage = async () => {
-//     // Implement the logic to add a new language
-//     try {
-//       // Send a request to add the language
-//       // You can update the state with the new language if needed
-//     } catch (err) {
-//       // Handle error
-//     }
-//   };
 
-//   if (error) {
-//     return <div>Error: {error}</div>;
-//   }
 
-//   return (
-//     <div className="language-container">
-//       <div className="container" style={{ paddingTop: "80px" }}>
-//         <div style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px', color: '#292B3A;' }}>
-//           <h1>Hey, <span style={{ textTransform: 'capitalize' }}>{name}</span> 👋</h1>
-//         </div>
-//         <h3 style={{ color: '#CE5A67', textAlign: 'center' }}>Your Selected Languages</h3>
-//         <div className="row mt-4" style={{ display: 'flex', justifyContent: 'center' }}>
-//           {data.map((item) => {
-//             return <LanguageCard key={item.language._id} language={item} />;
-//           })}
-//         </div>
-//         <button onClick={handleAddLanguageClick} className="btn btn-primary">
-//           Add Language
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
+  const handleResetProgress = (languageId) => {
+    console.log("resetting progress event triggered for language " + languageId);
+  };
 
-// export default LanguageCards;
+
+  const handleAddLanguage = (languageId) => {
+    console.log("addd language event triggered for language " + languageId);
+  };
+
+  return (
+    <div>
+      <h1>User Settings</h1>
+      {userData && (
+          <>
+          <LanguageProgress
+            progressData={userData?.preffered_languge}
+            setLanguageId = {setLanguageId}
+            setIsAddLanguage = {setIsAddLanguage}
+            setModalMessage = {setModalMessage}
+            setShowModal = {setShowModal}
+
+            
+          />
+          <AddLanguages
+            availableLanguages={userData?.allLanguages}
+            setLanguageId = {setLanguageId}
+            setIsAddLanguage = {setIsAddLanguage}
+            setShowModal = {setShowModal}
+            setModalMessage = {setModalMessage}
+          />
+        </>
+      )}
+      <CustomModal
+        isOpen={showModal}
+        onClose={handleModalClose}
+        onConfirm={handleConfirmAction}
+        message={modalMessage}
+      />
+    </div>
+  );
+}
+
+export default UserSettings;

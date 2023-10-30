@@ -74,7 +74,7 @@ const NavigationDropdown = ({ onLogout }) => {
           Progress
         </button>
         </Link>
-        </div>
+        <Link to='/userSettings' >
         <button
           className="dropdown-item secondary"
           // Add onClick handlers for other options
@@ -95,6 +95,8 @@ const NavigationDropdown = ({ onLogout }) => {
           />
           Update Profile
         </button>
+        </Link>
+        </div>
       </div>
     </div>
   );

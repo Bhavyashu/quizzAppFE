@@ -1,0 +1,160 @@
+
+
+  /* CSS for Language Progress Container */
+
+.language-progress {
+    background-color: #353935;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-content: center; 
+    padding: 30px;/* Create equally spaced columns */
+    gap: 10px; /* Space between grid items */
+    margin: 20px;
+  }
+  .language-progress h2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: black;
+  }
+  
+  /* Language Card */
+  
+
+  .language-card {
+    /* background-color: rgba(41, 41, 41, 0.9); */
+    /* border: 10px solid #b64d4d; */
+    padding: 20px;
+    /* margin: 20%; */
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  /* CSS for Language Card Content */
+  .lcard-content {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: space-between; /* Space content evenly along the vertical axis */
+    position: relative;
+    text-align: center; /* Center the text within the container */
+    padding: 20px;
+    color: black;
+  }
+  
+  /* Line Styles under <h3> */
+  .lcard-content h3::after {
+    content: "";
+    display: block;
+    width: 50px; /* Adjust the line width as needed */
+    height: 2px; /* Adjust the line height as needed */
+    background: #0074cc ;/* Line color */
+    margin: 10px auto; /* Center the line horizontally with spacing */
+  }
+
+/* Button Styles */
+.lcard-content button {
+    margin-top: auto; /* Push the button to the bottom */
+    background-color: #444; /* Pinkish background color */
+    color: #FFFFFF; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Language Card Hover Effect */
+  .language-card:hover {
+    transform: scale(1.05);
+    border: 2px solid #0074cc; /* Golden border color on hover */
+    transition: all 0.3s ease;
+  }
+  
+
+
+/* Modal Styles */
+.cust-modal {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay background */
+    z-index: 999; /* Ensure the modal is on top of other content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Rest of your styles for .cust-modal-content, .yes-button, and .no-button */
+  
+  
+  .cust-modal-content {
+    background-color: #1A1A2E; /* Dark modal background color */
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%; /* Adjust modal width as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow for depth effect */
+    text-align: center;
+  }
+  
+  /* Yes Button Styles */
+  .cust-modal-content .yes-button {
+    background-color: #00D700; /* Success color for "yes" button */
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  /* No Button Styles */
+  .cust-modal-content .no-button {
+    background-color: #FF0000; /* Danger color for "no" button */
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+
+
+
+/* 
+.custom-modal-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  } */
+  
+  /* CSS for Custom Modal */
+  /* .custom-modal {
+    background-color: #fff;
+    position: fixed;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+   */
+/* 
+  .custom-content .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+  } */ 
