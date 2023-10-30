@@ -3,17 +3,22 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import base_url from "../constants";
 import userPng from "../images/leaderboardUser.png";
-import scorePng from "../images/score.png";
-import profPng from "../images/prof-level.jpeg";
 
+
+/**
+ * Leaderboard is a React component that displays a leaderboard with language selection options.
+ *
+ * @returns {JSX.Element} The rendered Leaderboard component.
+ */
 const Leaderboard = () => {
-  // Hardcoded sample data for the global leaderboard
   const [globalLeaderboardData, setGlobalLeaderboardData] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("global");
   const [languages, setLanguages] = useState([]);
   const [customLeaderboardData, setCustomLeaderboardData] = useState([]);
 
-  // custom function  :
+  /**
+   * Fetches the default global leaderboard data from the API.
+   */
   const fetchDefaultLeaderBoard = async () => {
     try {
       const response = await axios.get(`${base_url}/leaderboard/global`, {
@@ -24,7 +29,7 @@ const Leaderboard = () => {
         },
       });
 
-      if (response.status != 200) {
+      if (response.status !== 200) {
         toast.error("Failed to fetch global leaderboard");
       }
       const { data } = response;
@@ -35,7 +40,9 @@ const Leaderboard = () => {
     }
   };
 
-  // Fetch the list of languages from an endpoint
+  /**
+   * Fetches the list of languages from the API.
+   */
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
@@ -47,7 +54,7 @@ const Leaderboard = () => {
           },
         });
 
-        if (response.status != 200) {
+        if (response.status !== 200) {
           toast.error("Failed to fetch exercises");
         }
 
@@ -64,14 +71,15 @@ const Leaderboard = () => {
     fetchDefaultLeaderBoard();
   }, []);
 
-  // Function to handle language selection and fetch custom leaderboards
+   /**
+   * Handles language selection and fetches custom leaderboards based on the selected language.
+   * @param {string} languageId - The selected language ID.
+   */
   const handleLanguageSelect = async (languageId) => {
     if (languageId === "global") {
       fetchDefaultLeaderBoard();
     } else {
       try {
-        // Fetch custom leaderboard data based on the selected language using Axios
-        // Replace 'your_custom_leaderboard_endpoint' with the actual API endpoint
         const response = await axios.get(
           `${base_url}/leaderboard/language?lid=${languageId}`,
           {
@@ -93,7 +101,10 @@ const Leaderboard = () => {
     setSelectedLanguage(languageId);
   };
 
-  // Function to render dropdown options
+   /**
+   * Renders language selection dropdown options.
+   * @returns {JSX.Element} Language selection dropdown.
+   */
   const renderLanguageOptions = () => {
     return (
       <select
@@ -111,7 +122,10 @@ const Leaderboard = () => {
     );
   };
 
-  // Function to render leaderboard cards based on the selected language
+   /**
+   * Renders leaderboard cards based on the selected language.
+   * @returns {JSX.Element} Leaderboard cards.
+   */
   const renderLeaderboardCards = () => {
     const leaderboardData =
       selectedLanguage === "global"
@@ -122,7 +136,7 @@ const Leaderboard = () => {
       <div key={index} className="candidate-card">
         <div className="card-header">
           <div className="user-info">
-            <h3 style={{}}>{candidate.name}</h3>
+            <h3 style={{textTransform: 'capitalize'}}>{candidate.name}</h3>
           </div>
           <div className="user-icon">
             <img src={userPng} alt="Candidate Icon" className="icon" />
@@ -130,15 +144,8 @@ const Leaderboard = () => {
         </div>
         <div className="card-content">
           <div className="container">
-            {/* <img src={profPng} alt="Language Icon" className="icon" /> */}
             <p>{` Language: ${candidate.preffered_languages[0].language}`}</p>
-            {/* <img src={scorePng} alt="Score Icon" className="icon" /> */}
             <p>{`Score: ${candidate.preffered_languages[0].score}`}</p>
-            {/* <img
-            src={profPng}
-            alt="Proficiency Icon"
-            className="icon"
-          />/ */}
             <p>{`Level: ${candidate.preffered_languages[0].proficiency || "N/A"}`}</p>
           </div>
           {candidate.preffered_languages.length > 1 && (

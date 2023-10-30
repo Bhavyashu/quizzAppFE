@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NavigationDropdown from './services/navbarDropdown'; // Create this component
 
+
+/**
+ * NavigationBar is a React component that represents the navigation bar of a web application.
+ *
+ * @returns {JSX.Element} The rendered navigation bar component.
+ */
 const NavigationBar = () => {
   const [userToken, setUserToken] = useState(localStorage.getItem('token'));
   const [userRole, setUserRole] = useState(localStorage.getItem('role'));
@@ -14,6 +20,9 @@ const NavigationBar = () => {
     setUserRole(localStorage.getItem('role'));
   }, []);
 
+  /**
+   * Handles the logout action.
+   */
   const handleLogOut = () => {
     localStorage.clear();
     navigate("/");

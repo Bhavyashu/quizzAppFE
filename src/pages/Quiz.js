@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import backgroundImage from '../images/quiz-bg.jpeg';
 import base_url from '../constants';
 import toast from 'react-hot-toast';
-import '../App.css';
+// import '../App.css';
 
 
 
 
 
 
-
+/**
+ * QuizPage is a React component that handles the display and verification of quiz questions.
+ *
+ * @returns {JSX.Element} The rendered QuizPage component.
+ */
 const QuizPage = () => {
   const { exerciseId, languageId } = useParams();
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [question, setQuestion] = useState({});
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
+
+   /**
+   * Verifies the selected answer for the current question.
+   * Makes an API request to verify the answer.
+   *
+   * @param {Object} question - The current question.
+   * @param {string} selectedAnswer - The selected answer.
+   * @returns {Object} The next question or null.
+   */
 
   const verifyAnswer = async (question, selectedAnswer) => {
     try {
@@ -72,6 +84,10 @@ const QuizPage = () => {
     return null; // Return null if there was an error
   };
 
+  /**
+   * Fetches the current appropriate level wise question from the server for this user.
+   */
+
   async function fetchQuestion() {
     try {
       setQuestion({});
@@ -103,11 +119,15 @@ const QuizPage = () => {
     };
   }, []);
 
-  
   useEffect(() => {
     fetchQuestion();
   }, []);
 
+  /**
+   * Handles the selection of an answer option.
+   *
+   * @param {string} answer - The selected answer.
+   */
   const handleAnswerSelect = (answer) => {
     if (selectedAnswer === answer) {
       setSelectedAnswer(null); // Deselect the option
@@ -116,6 +136,10 @@ const QuizPage = () => {
     }
   }
 
+  /**
+   * Handles the verification of the selected answer.
+   * If an answer is selected, it verifies the answer with the server.
+   */
   const handleVerifyAnswer = async () => {
     if (selectedAnswer === null) {
       toast.error("Please select an answer");
@@ -132,9 +156,7 @@ const QuizPage = () => {
     <div className="quiz-main-container">
       <div className="quiz-blur-background" />
       <div className="quiz-modal">
-        {loading ? (
-          <div className="loading-card">Verifying Answer...</div>
-        ) : (
+        {(
           question.Question && (
           <div className="quiz-content">
             <div className="quiz-question">

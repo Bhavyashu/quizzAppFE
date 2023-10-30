@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link to handle navigation
-import ExerciseList from "./ExerciseList";
 import base_url from "../constants";
-import bgImage from "../images/lan.jpg"
+
+/**
+ * LanguageCard is a React component that represents a card displaying information about a language.
+ *
+ * @param {object} props - The properties for the LanguageCard component.
+ * @param {object} props.language - The language information to display on the card.
+ * @returns {JSX.Element} The rendered LanguageCard component.
+ */
 
 function LanguageCard({ language: card }) {
   return (
@@ -33,7 +39,12 @@ function LanguageCard({ language: card }) {
   );
 }
 
-function LanguageCards() {
+/**
+ * LanguageCards is a React component that displays a list of selected languages.
+ *
+ * @returns {JSX.Element} The rendered LanguageCards component.
+ */
+function Dashboard() {
   const [data, setData] = useState([]);
   const [selectedLanguageId, setSelectedLanguageId] = useState(null);
   const [error, setError] = useState(null);
@@ -77,7 +88,7 @@ function LanguageCards() {
     <div className="language-container">
       <div className="container" style={{ paddingTop: "80px" }}>
       <div style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px', color: '#292B3A;' }}>
-      <h1>Hey, <span style={{ textTransform: 'capitalize' }}>{name}</span> 👋</h1>
+      <h1>Hey, <span style={{ textTransform: 'capitalize'  }}>{name}</span> 👋</h1>
       </div>
       <h3 style={{ color: '#CE5A67', textAlign: 'center' }}>Your Selected Languages</h3>
       <div className="row mt-4" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -90,4 +101,4 @@ function LanguageCards() {
   );
 }
 
-export default LanguageCards;
+export default Dashboard;
