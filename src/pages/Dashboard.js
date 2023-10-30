@@ -5,9 +5,9 @@ import { LanguageCardDashboard } from "../components/common/Cards";
 
 
 /**
- * LanguageCards is a React component that displays a list of selected languages.
+ * LanguageCardDashboard is a React component that displays a list of selected languages.
  *
- * @returns {JSX.Element} The rendered LanguageCards component.
+ * @returns {JSX.Element} The rendered LanguageCardDashboard component.
  */
 function Dashboard() {
   const [data, setData] = useState([]);
@@ -22,7 +22,6 @@ function Dashboard() {
 
         if (!data) {
           toast.error( `couldn't get the dashboard details` );
-          console.log(data);
         }
 
         if (data) {

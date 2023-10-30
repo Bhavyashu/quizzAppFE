@@ -25,7 +25,6 @@ const Leaderboard = () => {
 
       // if (response.status !== 200) {
       //   toast.error("Failed to fetch global leaderboard");
-      console.log("this is the data global board", data);
       setGlobalLeaderboardData(data);
     } catch (err) {
       toast.error(err.message);
@@ -39,7 +38,6 @@ const Leaderboard = () => {
     const fetchLanguages = async () => {
       try {
         const data = await get(`/admin/getLanguages`);
-        console.log(`this is the data for getting languages ${data}`);
         setLanguages(data);
       } catch (err) {
         toast.error(err.message);
@@ -62,7 +60,6 @@ const Leaderboard = () => {
     } else {
       try {
         const data = await get(`/leaderboard/language?lid=${languageId}`);
-        console.log("data for custom leaderboard", data);
         setCustomLeaderboardData(data); 
       } catch (error) {
         console.error("Error fetching custom leaderboard:", error);

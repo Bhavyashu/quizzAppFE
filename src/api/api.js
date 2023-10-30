@@ -2,9 +2,6 @@ import axios from "axios";
 import base_url from "../constants";
 import toast from "react-hot-toast";
 
-const excludeTokenUrls = ['//user/login']
-
-
 async function get(endpoint) {
   const token = localStorage.getItem("token");
 

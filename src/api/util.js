@@ -4,13 +4,18 @@ import  toast  from "react-hot-toast";
 
 async function postDataChange(isAddLanguage, languageId) {
   const endpoint = isAddLanguage ? "/user/addLanguage" : "/user/resetProgress";
-//   toast.error(`this is the endpoint ${endpoint}`)
   try {
-    const requestBody = {languageId}
-    toast.success(`this is the request body ${requestBody}`);
+    const requestBody = {languageId};
 
     const response =  await post(endpoint, requestBody)
-    console.log("response recieved from the backend", response);
+
+    if(response.acknowledged){
+      toast.success("Successfully updated the user settings in database");
+      return true;
+    }else if(!response.acknowledged){
+      toast.error(" Database server didn't acknowledge the update request try again later");
+      throw Error("Update request failed");
+    }
 
   } catch (error) {
     console.log("error updating user language settings: " + error.message);

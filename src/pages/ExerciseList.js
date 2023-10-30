@@ -42,7 +42,7 @@ function ExerciseList() {
           toast.error("Failed to fetch exercises");
           throw new Error("Failed to fetch exercises");
         }
-        console.log("here I am");
+
         setExerciseFetched(true);
         setExercises(data);
       } catch (err) {
