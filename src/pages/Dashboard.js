@@ -47,8 +47,8 @@ function Dashboard() {
       </div>
       <h3 style={{ color: '#CE5A67', textAlign: 'center' }}>Your Selected Languages</h3>
       <div className="row mt-4" style={{ display: 'flex', justifyContent: 'center' }}>
-          {data.map((item) => {
-            return <LanguageCardDashboard key={item.language._id} language={item} />;
+          {data && data.length > 0 && data.map((item) => {
+            return <LanguageCardDashboard key={item._id} language={item} />;
           })}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import base_url from "../constants";
 import toast from "react-hot-toast";
-
+import { errors } from '../utils/errors';
 async function get(endpoint) {
   const token = localStorage.getItem("token");
 
@@ -17,18 +17,16 @@ async function get(endpoint) {
     if (response.status === 200) {
       return response.data.data;
     }
-    else if(response.status >= 400 && response.status <=409){
-      toast.error("Bad Request here is the server response", response.data.message);
-      console.error("GET request failed with status:", response.data.message);
-
-    }
     else {
       toast.error("GET request failed message:", response.message);
       console.error("GET request failed with status:", response.status);
       return null;
     }
   } catch (error) {
-    toast.error("An error occurred during the GET request:", error);
+    const { data } = error.response;
+    if(data.statusCode>=400 && data.statusCode<=409){
+      toast.error('Bad request message : ', data.message);
+    }
     console.error("An error occurred during the GET request:", error);
     throw error;
   }
@@ -46,16 +44,29 @@ async function post(endpoint, data) {
       },
     });
 
+    // console.log(`response.data is this ${response.data}`);
     if (response.status === 200 || response.status) { 
       return response.data.data || response.data.status;
+    }
+    else if(response.status >= 400 && response.status <=409){
+      toast.error("Bad Request here is the server response", response.data.message);
+      console.error("GET request failed with status:", response.data.message);
+      return;
     } else {
       toast.error("POST request failed message:", response.message);
       console.log("POST request failed details:", response);
       return null;
     }
   } catch (error) {
-    toast.error("An error occurred during the POST request:", error.message);
+    const { data } = error.response;
+
+    if(data.statusCode>=400 && data.statusCode<=409){
+      const errorMessage = `Bad request:  ${data.message}`;
+      toast.error(errorMessage);
+      console.log("this is the data",data.message);
+    }else{
     console.error("An error occurred during the POST request:", error);
+    }
     throw error;
   }
 }

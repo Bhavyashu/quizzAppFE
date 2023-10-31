@@ -55,7 +55,7 @@ const Login = () => {
           window.location.reload(); // reload so the navbar can show other things, there might be better solution than this ig
         }, 1000);
       } catch (error) {
-        toast.error("Error signing in the user");
+        // toast.error("Error signing in the user");
         console.error("Error signing in:", error);
       }
   };
