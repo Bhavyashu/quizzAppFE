@@ -4,7 +4,6 @@ import userProfileImage from "../../images/userProfile.png";
 import updateProfileImage from "../../images/settings.png";
 import { Link } from "react-router-dom";
 
-
 /**
  * NavigationDropdown is a React component that renders a dropdown menu of navigation options.
  *
@@ -14,6 +13,7 @@ import { Link } from "react-router-dom";
  * @returns {JSX.Element} The rendered navigation dropdown component.
  */
 const NavigationDropdown = ({ onLogout }) => {
+
   return (
     <div className="btn-group">
       <button
@@ -23,12 +23,12 @@ const NavigationDropdown = ({ onLogout }) => {
         aria-haspopup="true"
         aria-expanded="false"
         style={{
-          color: '#12486B',
+          color: 'white',
         }}
       >
         More options
       </button>
-      <div className="dropdown-menu" style={{ width: '250px', top: '100%', left: '-100px' }}>
+      <div className="dropdown-menu custom-dropdown-menu">
         <div className="dropdown-divider"></div>
         <button
           className="dropdown-item secondary"
