@@ -1,14 +1,14 @@
 import React from 'react';
-import LanguageCard from './LanguageCard';
+import {LanguageCard} from './common/Cards';
 
 function LanguageProgress({ progressData ,setLanguageId, setShowModal,
   setIsAddLanguage, 
   setModalMessage
 }) {
   return (
-    <div className="language-progress"> 
+    <div className="language-progress" style = {{backgroundColor:"#162A72"}}> 
    <div>
-      <h2>Languages Progress</h2>
+      <h2 style={{color:"white"}}>Languages Progress</h2>
       </div>
       {progressData?.map((languageData, index) => (
         <LanguageCard

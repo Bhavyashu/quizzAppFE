@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import base_url from "../constants";
 import userPng from "../images/leaderboardUser.png";
+import { get} from "../api/api";
 
 
 /**
@@ -21,19 +21,10 @@ const Leaderboard = () => {
    */
   const fetchDefaultLeaderBoard = async () => {
     try {
-      const response = await axios.get(`${base_url}/leaderboard/global`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
+      const data = await get(`/leaderboard/global`);
 
-      if (response.status !== 200) {
-        toast.error("Failed to fetch global leaderboard");
-      }
-      const { data } = response;
-
+      // if (response.status !== 200) {
+      //   toast.error("Failed to fetch global leaderboard");
       setGlobalLeaderboardData(data);
     } catch (err) {
       toast.error(err.message);
@@ -46,19 +37,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const response = await fetch(`${base_url}/admin/getLanguages`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        });
-
-        if (response.status !== 200) {
-          toast.error("Failed to fetch exercises");
-        }
-
-        const data = await response.json();
+        const data = await get(`/admin/getLanguages`);
         setLanguages(data);
       } catch (err) {
         toast.error(err.message);
@@ -80,20 +59,8 @@ const Leaderboard = () => {
       fetchDefaultLeaderBoard();
     } else {
       try {
-        const response = await axios.get(
-          `${base_url}/leaderboard/language?lid=${languageId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        );
-
-        const { data } = response;
-        
-        setCustomLeaderboardData(data); // Assuming the data is an array of leaderboard items
+        const data = await get(`/leaderboard/language?lid=${languageId}`);
+        setCustomLeaderboardData(data); 
       } catch (error) {
         console.error("Error fetching custom leaderboard:", error);
       }

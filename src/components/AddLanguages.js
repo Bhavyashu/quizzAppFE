@@ -1,15 +1,27 @@
 import React from 'react';
-import LanguageCard from './LanguageCard';
+import { LanguageCard }from './common/Cards';
+import {useState,useEffect} from 'react';
 
 function AddLanguages({ availableLanguages, setLanguageId, setShowModal,
   setIsAddLanguage, 
-  setModalMessage }) {
+  setModalMessage, flag }) {
+
+    const [avail,setAvail] = useState(false);
+
+    useEffect(()=>{
+      if(availableLanguages.length!=0){
+        setAvail(true);
+      }
+      else{
+        setAvail(false);
+      }
+    },[])
   return (
-    <div className='language-progress'>
+    <div className='language-progress' style = {{backgroundColor:"#162A72"}}>
        <div>
-      <h2>Add Languages</h2>
+      <h2 style={{color:"white"}}>Add Languages</h2>
       </div>
-      {availableLanguages?.map((languageData, index) => (
+      {flag?(availableLanguages?.map((languageData, index) => (
         <LanguageCard
           key={index}
           data={languageData}
@@ -19,7 +31,8 @@ function AddLanguages({ availableLanguages, setLanguageId, setShowModal,
   setIsAddLanguage={setIsAddLanguage} 
   setModalMessage={setModalMessage}
         />
-      ))}
+      ))):(<div style = {{textAlign:'center'}}>You have selected all languages!</div>)}
+
     </div>
   );
 }
