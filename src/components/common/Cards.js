@@ -1,52 +1,66 @@
-import React, { useState } from 'react';
-import CustomModal from './Modals';
+import React, { useState } from "react";
+import CustomModal from "./Modals";
 import { Link } from "react-router-dom";
-import '../userSetting.css'
+import "../userSetting.css";
 
-function LanguageCard({ data, isAddLanguage = false, setLanguageId,setShowModal,
-  setIsAddLanguage, 
-  setModalMessage }) {
-
+function LanguageCard({
+  data,
+  isAddLanguage = false,
+  setLanguageId,
+  setShowModal,
+  setIsAddLanguage,
+  setModalMessage,
+}) {
   const handleButtonClick = () => {
-
     if (isAddLanguage) {
-      setLanguageId(data._id)
-      setModalMessage(`Are you sure you want to add ${data.name} in your learning track?`)
-      setIsAddLanguage(true)
-      setShowModal(true)
+      setLanguageId(data._id);
+      setModalMessage(
+        `Are you sure you want to add ${data.name} in your learning track?`
+      );
+      setIsAddLanguage(true);
+      setShowModal(true);
     } else {
-      setLanguageId(data.language._id)
+      setLanguageId(data.language._id);
       setModalMessage(
         `Are you sure you want to reset progress for ${data.language.name} ?`
       );
       setIsAddLanguage(false);
-      setShowModal(true)
+      setShowModal(true);
     }
   };
 
-
-return (
-  <div className="language-card" style = {{backgroundColor:"white"}}>
-     <div className="lcard-content"> 
-    <h3>{isAddLanguage ? data.name : (data.language ? data.language.name : '')}</h3>
-    {isAddLanguage ? (
-      <>
-        <p>Total Questions: {data.total_questions}</p>
-        <p>Total Score: {data.total_score}</p>
-        <p>Exercises: {data.exercises}</p>
-        <button class = "btn btn-primary" onClick={() => handleButtonClick()}>+ Add Language</button> {/* Open the modal when clicked */}
-      </>
-    ) : (
-      <>
-        <p>Proficiency: {data.proficiency}</p>
-        <p>Score: {data.score}</p>
-        <button class = "btn btn-primary" onClick={() => handleButtonClick()}>Reset Progress</button> {/* Open the modal when clicked */}
-      </>
-    )}
-     </div>
-
-  </div>
-);
+  return (
+    <div className="language-card" style={{ backgroundColor: "white" }}>
+      <div className="lcard-content">
+        <h3>
+          {isAddLanguage ? data.name : data.language ? data.language.name : ""}
+        </h3>
+        {isAddLanguage ? (
+          <>
+            <p>Total Questions: {data.total_questions}</p>
+            <p>Total Score: {data.total_score}</p>
+            <p>Exercises: {data.exercises}</p>
+            <button class="btn btn-primary" onClick={() => handleButtonClick()}>
+              + Add Language
+            </button>
+          </>
+        ) : (
+          <>
+            <p>Proficiency: {data.proficiency}</p>
+            <p>Scored: {data.score}</p>
+            {data.score > 0 ? (
+              <button
+                className="btn btn-primary"
+                onClick={() => handleButtonClick()}
+              >
+                Reset Progress
+              </button>
+            ) : null}
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
 
 /**
@@ -85,8 +99,6 @@ function LanguageCardDashboard({ language: card }) {
   );
 }
 
-
-
 const cardStyles = {
   border: "2px solid #3498db",
   borderRadius: "10px",
@@ -104,7 +116,7 @@ const cardContainerStyles = {
   flexDirection: "column",
   height: "100%", // Set a fixed height for the container
 };
-function ExerciseCard({ exercise, languageId}) {
+function ExerciseCard({ exercise, languageId }) {
   return (
     <div className="card" style={cardStyles}>
       <div className="card-body" style={cardContainerStyles}>
@@ -112,7 +124,7 @@ function ExerciseCard({ exercise, languageId}) {
           <h5 className="card-title">{exercise.name}</h5>
           <p className="card-text">
             <strong>Description:</strong>
-            <div style={{ maxHeight: '120px', overflow: 'auto' }}>
+            <div style={{ maxHeight: "120px", overflow: "auto" }}>
               {exercise.description}
             </div>
             <br />
@@ -132,8 +144,11 @@ function ExerciseCard({ exercise, languageId}) {
               </div>
             </div>
             {exercise.completed !== exercise.Questions && (
-              <div style={{ marginTop: '10px' }}>
-                <Link to={`/quiz/${exercise._id}/${languageId}`} className="btn btn-primary">
+              <div style={{ marginTop: "10px" }}>
+                <Link
+                  to={`/quiz/${exercise._id}/${languageId}`}
+                  className="btn btn-primary"
+                >
                   Attend Quiz
                 </Link>
               </div>
@@ -145,5 +160,4 @@ function ExerciseCard({ exercise, languageId}) {
   );
 }
 
-
-export {LanguageCard , LanguageCardDashboard, ExerciseCard}
+export { LanguageCard, LanguageCardDashboard, ExerciseCard };

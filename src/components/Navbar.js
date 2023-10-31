@@ -63,6 +63,11 @@ const NavigationBar = () => {
                       Leaderboard
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link to="/userProgress" className="nav-link pl-2 pr-4" style={{ color: "#ffffff" }}>
+                      Progress
+                    </Link>
+                  </li>  
               </>
             )}
           </ul>

@@ -40,10 +40,6 @@ const UserProgressPage = () => {
           toast('You have not attended any questions in any languages, please comeback once you answered them', {
             icon: `😕`,
           });
-          setTimeout(() => {
-            navigate('/dashboard');
-            window.location.reload();
-          }, 1000);
         }
 
         setUserData(data);
@@ -65,7 +61,7 @@ const UserProgressPage = () => {
           <h2 style={{color: '#CE5A67'}}>{language.name}</h2>
           <div className="language-info">
             <p>Total Score: {language.total_score}</p>
-            <p>User Score: {language.score}</p>
+            <p>Your Score: {language.score}</p>
             <p>Proficiency: {language.proficiency}</p>
           </div>
           <div className="exercises-container">

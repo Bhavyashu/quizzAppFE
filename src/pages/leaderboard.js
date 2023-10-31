@@ -112,7 +112,7 @@ const Leaderboard = () => {
         <div className="card-content">
           <div className="container">
             <p>{` Language: ${candidate.preffered_languages[0].language}`}</p>
-            <p>{`Score: ${candidate.preffered_languages[0].score}`}</p>
+            <p>{`Scored: ${candidate.preffered_languages[0].score}`}</p>
             <p>{`Level: ${candidate.preffered_languages[0].proficiency || "N/A"}`}</p>
           </div>
           {candidate.preffered_languages.length > 1 && (

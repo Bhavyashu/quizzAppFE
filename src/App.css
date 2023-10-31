@@ -337,6 +337,8 @@ select {
 .card-header {
   display: flex;
   align-items: center;
+  /* border: 1px solid black; */
+  border-bottom: 2px solid black;
 }
 
 .user-info {
