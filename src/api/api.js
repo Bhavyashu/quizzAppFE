@@ -16,7 +16,13 @@ async function get(endpoint) {
 
     if (response.status === 200) {
       return response.data.data;
-    } else {
+    }
+    else if(response.status >= 400 && response.status <=409){
+      toast.error("Bad Request here is the server response", response.data.message);
+      console.error("GET request failed with status:", response.data.message);
+
+    }
+    else {
       toast.error("GET request failed message:", response.message);
       console.error("GET request failed with status:", response.status);
       return null;
@@ -40,7 +46,7 @@ async function post(endpoint, data) {
       },
     });
 
-    if (response.status === 200 ) { 
+    if (response.status === 200 || response.status) { 
       return response.data.data || response.data.status;
     } else {
       toast.error("POST request failed message:", response.message);
