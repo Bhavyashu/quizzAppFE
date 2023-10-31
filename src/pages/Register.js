@@ -123,13 +123,10 @@ const Register = () => {
           window.location.reload();
         }, 1000);
         
-      } else {
-        toast.error('no data received');
-        console.log(data);
       }
     } catch (error) {
       console.error("Registration error:", error);
-      toast.error("Registration failed. Please try again later.");
+      // toast.error("Registration failed. Please try again later.");
     }
   };
 
