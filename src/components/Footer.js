@@ -78,16 +78,16 @@ export default function Footer() {
               <p>
                 <FontAwesomeIcon icon={faHome} className="me-2" />
                 <span> </span>
-                KMIT, Narayanaguda, Hyderabad
+                New Friends Colony, Attapur, Hyderabad, India
               </p>
               <p>
                 <FontAwesomeIcon icon={faEnvelope} className="me-3" />
                 <span> </span>
-                Bhavyashu@gmail.com
+                the.bhavyashu@gmail.com
               </p>
               <p>
                 <FontAwesomeIcon icon={faPhone} className="me-3" />
-                <span> </span> + 01 234 567 89
+                <span> </span> +91 86397 54633
               </p>
             </div>
           </div>
