@@ -39,6 +39,7 @@ const NavigationBar = () => {
           data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
+          style={{ backgroundColor: "#D0D4CA" }}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
@@ -47,7 +48,7 @@ const NavigationBar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to="/" className="nav-link pl-4 pr-4" style={{ color: "#ffffff" }}>
+              <Link to="/" className="nav-link pl-2 pr-4" style={{ color: "#ffffff" }}>
                 Home
               </Link>
             </li>
